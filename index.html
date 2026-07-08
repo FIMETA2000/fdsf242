@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Reddit Story Studio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- АНИМИРОВАННЫЙ ФОН -->
+
+<div id="background"></div>
+
+<div id="fog"></div>
+
+<div id="particles"></div>
+
+<div class="overlay"></div>
+
+<!-- ЛЕВАЯ ПАНЕЛЬ -->
+
+<div class="sidebar">
+
+<h1>Reddit Story Studio</h1>
+
+<div class="section">
+
+<label>Avatar</label>
+
+<input type="file"
+id="avatarUpload"
+accept="image/*">
+
+</div>
+
+<div class="section">
+
+<label>Background</label>
+
+<select id="backgroundSelect">
+
+<option value="forest">🌲 Dark Forest</option>
+
+<option value="road">🛣 Lonely Road</option>
+
+<option value="moon">🌙 Moon</option>
+
+<option value="rain">🌧 Rain</option>
+
+<option value="graveyard">⚰ Graveyard</option>
+
+<option value="house">🏚 Abandoned House</option>
+
+</select>
+
+</div>
+
+<div class="section">
+
+<label>Subreddit</label>
+
+<input
+id="subreddit"
+value="r/LetsNotMeet">
+
+</div>
+
+<div class="section">
+
+<label>Author</label>
+
+<input
+id="author"
+value="u/Anonymous">
+
+</div>
+
+<div class="section">
+
+<label>Time</label>
+
+<input
+id="time"
+value="8 hr. ago">
+
+</div>
+
+<div class="section">
+
+<label>Upvotes</label>
+
+<input
+id="upvotes"
+value="18.2k">
+
+</div>
+
+<div class="section">
+
+<label>Comments</label>
+
+<input
+id="comments"
+value="482">
+
+</div>
+
+<div class="section">
+
+<label>Story Title</label>
+
+<input
+id="title"
+value="Something Happened Last Night">
+
+</div>
+
+<div class="section">
+
+<label>Story</label>
+
+<textarea id="story">
+
+Paste your Reddit story here...
+
+</textarea>
+
+</div>
+
+<div class="buttons">
+
+<button id="update">
+
+Update
+
+</button>
+
+<button id="obs">
+
+OBS Mode
+
+</button>
+
+<button id="download">
+
+Download PNG
+
+</button>
+
+</div>
+
+</div>
+
+<!-- REDDIT -->
+
+<div class="preview">
+
+<div class="redditCard">
+
+<div class="redditHeader">
+
+<div class="avatar">
+
+<img
+id="avatarImage"
+src="assets/default-avatar.png">
+
+</div>
+
+<div>
+
+<div class="subreddit"
+id="previewSubreddit">
+
+r/LetsNotMeet
+
+</div>
+
+<div class="meta">
+
+<span id="previewAuthor">
+
+u/Anonymous
+
+</span>
+
+•
+
+<span id="previewTime">
+
+8 hr. ago
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<h2
+id="previewTitle">
+
+Something Happened Last Night
+
+</h2>
+
+<div
+class="story"
+id="previewStory">
+
+Paste your Reddit story here...
+
+</div>
+
+<div class="bottomBar">
+
+<div>
+
+▲
+
+<span id="previewUpvotes">
+
+18.2k
+
+</span>
+
+</div>
+
+<div>
+
+💬
+
+<span id="previewComments">
+
+482
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
