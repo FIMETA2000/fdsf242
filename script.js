@@ -20,10 +20,6 @@ const upvotes = document.getElementById("upvotes");
 
 const comments = document.getElementById("comments");
 
-const background = document.getElementById("background");
-
-const backgroundSelect = document.getElementById("backgroundSelect");
-
 const updateBtn = document.getElementById("update");
 
 const obsBtn = document.getElementById("obs");
@@ -104,35 +100,6 @@ avatarImage.src=event.target.result;
 reader.readAsDataURL(file);
 
 });
-
-
-// ==========================
-// BACKGROUNDS
-// ==========================
-
-const backgrounds={
-
-forest:"backgrounds/forest.jpg",
-
-road:"backgrounds/road.jpg",
-
-moon:"backgrounds/moon.jpg",
-
-rain:"backgrounds/rain.jpg",
-
-graveyard:"backgrounds/graveyard.jpg",
-
-house:"backgrounds/house.jpg"
-
-};
-
-backgroundSelect.onchange=function(){
-
-background.style.backgroundImage=
-
-`url(${backgrounds[this.value]})`;
-
-};
 
 
 // ==========================
