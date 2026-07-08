@@ -166,3 +166,33 @@ document.body.classList.toggle("obs");
 // ==========================
 
 updatePost();
+
+// ==========================
+// DOWNLOAD PNG
+// ==========================
+
+const downloadBtn = document.getElementById("download");
+
+downloadBtn.addEventListener("click", () => {
+
+    html2canvas(document.querySelector(".redditCard"), {
+
+        backgroundColor: null,
+
+        scale: 2,
+
+        useCORS: true
+
+    }).then(canvas => {
+
+        const link = document.createElement("a");
+
+        link.download = "reddit-story.png";
+
+        link.href = canvas.toDataURL();
+
+        link.click();
+
+    });
+
+});
