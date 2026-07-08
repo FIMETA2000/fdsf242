@@ -21,7 +21,7 @@
 
 <!-- АНИМИРОВАННЫЙ ФОН -->
 
-<div id="background"></div>
+<video id="backgroundVideo" autoplay muted loop playsinline></video>
 
 <div id="fog"></div>
 
@@ -47,21 +47,8 @@ accept="image/*">
 
 <div class="section">
 
-<label>Background</label>
-
-<select id="backgroundSelect">
-
-<option value="forest">🌲 Dark Forest</option>
-
-<option value="road">🛣 Lonely Road</option>
-
-<option value="moon">🌙 Moon</option>
-
-<option value="rain">🌧 Rain</option>
-
-<option value="graveyard">⚰ Graveyard</option>
-
-<option value="house">🏚 Abandoned House</option>
+<label>Background Video</label>
+<input type="file" id="videoUpload" accept="video/mp4,video/webm,video/quicktime">
 
 </select>
 
