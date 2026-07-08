@@ -209,6 +209,27 @@ downloadBtn.addEventListener("click", () => {
 
 });
 
+// ==========================
+// VIDEO BACKGROUND
+// ==========================
+
+const videoUpload = document.getElementById("videoUpload");
+const backgroundVideo = document.getElementById("backgroundVideo");
+
+videoUpload.addEventListener("change", (e) => {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const url = URL.createObjectURL(file);
+
+    backgroundVideo.src = url;
+    backgroundVideo.load();
+    backgroundVideo.play();
+
+});
+
 // EXIT OBS
 document.addEventListener("keydown", function(e){
 
