@@ -141,7 +141,17 @@ background.style.backgroundImage=
 
 obsBtn.onclick=function(){
 
-document.body.classList.toggle("obs");
+document.body.classList.add("obs");
+
+exitOBS.style.display="block";
+
+};
+
+exitOBS.onclick=function(){
+
+document.body.classList.remove("obs");
+
+exitOBS.style.display="none";
 
 };
 
