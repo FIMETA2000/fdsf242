@@ -540,6 +540,12 @@ body.obs .sidebar{
 
 }
 
+body.obs #exitOBS{
+
+    display:block !important;
+
+}
+
 body.obs .preview{
 
     left:50%;
@@ -734,5 +740,19 @@ width:6px;
 background:#444;
 
 border-radius:20px;
+
+}
+
+#exitOBS{
+
+    position:fixed;
+
+    top:20px;
+
+    left:20px;
+
+    z-index:9999;
+
+    width:150px;
 
 }
