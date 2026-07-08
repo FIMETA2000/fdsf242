@@ -28,6 +28,8 @@ const updateBtn = document.getElementById("update");
 
 const obsBtn = document.getElementById("obs");
 
+const exitOBS=document.getElementById("exitOBS");
+
 // Preview
 
 const previewSubreddit = document.getElementById("previewSubreddit");
