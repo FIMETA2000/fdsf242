@@ -135,6 +135,9 @@ e.preventDefault();
 
 document.body.classList.toggle("obs");
 
+exitOBS.style.display =
+document.body.classList.contains("obs") ? "block" : "none";
+
 }
 
 });
@@ -201,7 +204,11 @@ videoUpload.addEventListener("change", (e) => {
 document.addEventListener("keydown", function(e){
 
     if(e.key==="Escape"){
-        document.body.classList.remove("obs");
-    }
+
+    document.body.classList.remove("obs");
+
+    exitOBS.style.display="none";
+
+}
 
 });
