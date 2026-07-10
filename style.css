@@ -304,7 +304,8 @@ max-height:860px;
 
 overflow:hidden;
 
-background:#000;
+background:#000 !important;
+opacity:1 !important;
 
 border-radius:24px;
 
