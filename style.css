@@ -660,45 +660,6 @@ overflow:hidden;
 
 }
 
-.redditCard::before{
-
-content:"";
-
-position:absolute;
-
-inset:-2px;
-
-background:
-
-linear-gradient(
-120deg,
-transparent,
-rgba(255,255,255,.04),
-transparent
-);
-
-pointer-events:none;
-
-animation:shine 7s linear infinite;
-
-}
-
-@keyframes shine{
-
-from{
-
-transform:translateX(-120%);
-
-}
-
-to{
-
-transform:translateX(220%);
-
-}
-
-}
-
 /* ==========================
 TITLE EFFECT
 ========================== */
