@@ -158,24 +158,19 @@ const downloadBtn = document.getElementById("download");
 downloadBtn.addEventListener("click", () => {
 
     html2canvas(document.querySelector(".redditCard"), {
+    backgroundColor: "#000000",
+    scale: 2,
+    useCORS: true,
+    logging: false,
+    removeContainer: true
+}).then(canvas => {
 
-        backgroundColor: null,
+    const link = document.createElement("a");
+    link.download = "reddit-story.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
 
-        scale: 2,
-
-        useCORS: true
-
-    }).then(canvas => {
-
-        const link = document.createElement("a");
-
-        link.download = "reddit-story.png";
-
-        link.href = canvas.toDataURL();
-
-        link.click();
-
-    });
+});
 
 });
 
