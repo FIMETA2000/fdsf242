@@ -209,38 +209,6 @@ downloadBtn.addEventListener("click", async function () {
 
             logging: false,
 
-            onclone: function (clonedDocument) {
-
-                const clonedCard =
-                    clonedDocument.querySelector(".redditCard");
-
-                const clonedStory =
-                    clonedDocument.querySelector(".story");
-
-                if (clonedCard) {
-
-                    clonedCard.style.background = "#000000";
-
-                    clonedCard.style.borderRadius = "28px";
-
-                    clonedCard.style.overflow = "hidden";
-
-                    clonedCard.style.boxShadow = "none";
-
-                }
-
-                if (clonedStory) {
-
-                    clonedStory.style.maxHeight = "none";
-
-                    clonedStory.style.height = "auto";
-
-                    clonedStory.style.overflow = "visible";
-
-                }
-
-            }
-
         });
 
 
