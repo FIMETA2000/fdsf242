@@ -172,41 +172,43 @@ downloadBtn.addEventListener("click", async function () {
 
     const storyElement = card.querySelector(".story");
 
-    // Запоминаем исходные стили
+    // Сохраняем исходные стили
     const oldMaxHeight = storyElement.style.maxHeight;
     const oldHeight = storyElement.style.height;
     const oldOverflow = storyElement.style.overflow;
-    const oldScrollHeight = storyElement.scrollHeight;
 
-    // Временно раскрываем весь текст
+    // Временно раскрываем текст
     storyElement.style.maxHeight = "none";
     storyElement.style.height = "auto";
     storyElement.style.overflow = "visible";
 
-    // Ждём обновления страницы
-    await new Promise(resolve => requestAnimationFrame(resolve));
+    await new Promise(resolve =>
+        requestAnimationFrame(resolve)
+    );
 
     try {
 
+        // Получаем размеры карточки
+        const width = card.offsetWidth;
+        const height = card.scrollHeight;
+
+        // Создаём основной canvas
         const canvas = await html2canvas(card, {
 
-            // Фон за закруглёнными углами будет прозрачным
-            backgroundColor: null,
-
-            // Качество
             scale: 2,
 
-            // Размер строго по карточке
-            width: card.offsetWidth,
-            height: card.scrollHeight,
+            backgroundColor: null,
+
+            width: width,
+
+            height: height,
 
             useCORS: true,
+
             allowTaint: false,
 
-            // Убираем лишние эффекты
             logging: false,
 
-            // ВАЖНО для скруглённых углов
             onclone: function (clonedDocument) {
 
                 const clonedCard =
@@ -219,7 +221,7 @@ downloadBtn.addEventListener("click", async function () {
 
                     clonedCard.style.background = "#000000";
 
-                    clonedCard.style.borderRadius = "24px";
+                    clonedCard.style.borderRadius = "28px";
 
                     clonedCard.style.overflow = "hidden";
 
@@ -241,41 +243,146 @@ downloadBtn.addEventListener("click", async function () {
 
         });
 
-        // Восстанавливаем карточку на сайте
-        storyElement.style.maxHeight = oldMaxHeight;
-        storyElement.style.height = oldHeight;
-        storyElement.style.overflow = oldOverflow;
 
-        // Создаём PNG
-        canvas.toBlob(function (blob) {
+        // ==========================
+        // СОЗДАЁМ НАСТОЯЩИЕ
+        // ПРОЗРАЧНЫЕ СКРУГЛЁННЫЕ УГЛЫ
+        // ==========================
+
+        const radius = 28 * 2;
+
+        const finalCanvas =
+            document.createElement("canvas");
+
+        finalCanvas.width = canvas.width;
+
+        finalCanvas.height = canvas.height;
+
+        const ctx =
+            finalCanvas.getContext("2d");
+
+        // Полностью прозрачный фон
+        ctx.clearRect(
+            0,
+            0,
+            finalCanvas.width,
+            finalCanvas.height
+        );
+
+        // Создаём маску с закруглёнными углами
+        ctx.beginPath();
+
+        ctx.moveTo(radius, 0);
+
+        ctx.lineTo(
+            finalCanvas.width - radius,
+            0
+        );
+
+        ctx.quadraticCurveTo(
+            finalCanvas.width,
+            0,
+            finalCanvas.width,
+            radius
+        );
+
+        ctx.lineTo(
+            finalCanvas.width,
+            finalCanvas.height - radius
+        );
+
+        ctx.quadraticCurveTo(
+            finalCanvas.width,
+            finalCanvas.height,
+            finalCanvas.width - radius,
+            finalCanvas.height
+        );
+
+        ctx.lineTo(
+            radius,
+            finalCanvas.height
+        );
+
+        ctx.quadraticCurveTo(
+            0,
+            finalCanvas.height,
+            0,
+            finalCanvas.height - radius
+        );
+
+        ctx.lineTo(
+            0,
+            radius
+        );
+
+        ctx.quadraticCurveTo(
+            0,
+            0,
+            radius,
+            0
+        );
+
+        ctx.closePath();
+
+        // Обрезаем всё за пределами скругления
+        ctx.clip();
+
+        // Рисуем карточку внутрь маски
+        ctx.drawImage(
+            canvas,
+            0,
+            0
+        );
+
+
+        // ==========================
+        // ВОССТАНАВЛИВАЕМ СТРАНИЦУ
+        // ==========================
+
+        storyElement.style.maxHeight =
+            oldMaxHeight;
+
+        storyElement.style.height =
+            oldHeight;
+
+        storyElement.style.overflow =
+            oldOverflow;
+
+
+        // ==========================
+        // СКАЧИВАЕМ PNG
+        // ==========================
+
+        finalCanvas.toBlob(function (blob) {
 
             if (!blob) {
 
-                alert("Не удалось создать изображение");
+                alert(
+                    "Не удалось создать изображение"
+                );
 
                 return;
 
             }
 
-            // Создаём временную ссылку
-            const url = URL.createObjectURL(blob);
+            const url =
+                URL.createObjectURL(blob);
 
-            const link = document.createElement("a");
+            const link =
+                document.createElement("a");
 
             link.href = url;
 
-            link.download = "reddit-story.png";
+            link.download =
+                "reddit-story.png";
 
-            // ВАЖНО: добавляем ссылку в DOM
             document.body.appendChild(link);
 
-            // Запускаем скачивание
             link.click();
 
-            // Удаляем ссылку
-            setTimeout(function () {
+            document.body.removeChild(link);
 
-                document.body.removeChild(link);
+            setTimeout(function () {
 
                 URL.revokeObjectURL(url);
 
@@ -283,16 +390,27 @@ downloadBtn.addEventListener("click", async function () {
 
         }, "image/png");
 
+
     } catch (error) {
 
-        // Возвращаем стили даже при ошибке
-        storyElement.style.maxHeight = oldMaxHeight;
-        storyElement.style.height = oldHeight;
-        storyElement.style.overflow = oldOverflow;
+        // Восстанавливаем страницу
+        storyElement.style.maxHeight =
+            oldMaxHeight;
 
-        console.error("Ошибка сохранения PNG:", error);
+        storyElement.style.height =
+            oldHeight;
 
-        alert("Ошибка при сохранении изображения. Открой F12 → Console и посмотри ошибку.");
+        storyElement.style.overflow =
+            oldOverflow;
+
+        console.error(
+            "Ошибка сохранения PNG:",
+            error
+        );
+
+        alert(
+            "Ошибка при сохранении изображения. Открой F12 → Console."
+        );
 
     }
 
