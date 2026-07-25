@@ -190,8 +190,8 @@ downloadBtn.addEventListener("click", async function () {
 
         const canvas = await html2canvas(card, {
 
-            // ВАЖНО: фон картинки НЕ прозрачный
-            backgroundColor: "#000000",
+            // Фон за закруглёнными углами будет прозрачным
+            backgroundColor: null,
 
             // Качество
             scale: 2,
