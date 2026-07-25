@@ -165,61 +165,135 @@ downloadBtn.addEventListener("click", async function () {
 
     const card = document.querySelector(".redditCard");
 
-    // Запоминаем текущий скролл текста
-
-    const oldScrollTop = card.querySelector(".story").scrollTop;
-
-    // Временно убираем ограничение высоты текста,
-    // чтобы PNG не обрезал нижние строки
+    if (!card) {
+        alert("Карточка не найдена");
+        return;
+    }
 
     const storyElement = card.querySelector(".story");
 
+    // Запоминаем исходные стили
     const oldMaxHeight = storyElement.style.maxHeight;
-
+    const oldHeight = storyElement.style.height;
     const oldOverflow = storyElement.style.overflow;
+    const oldScrollHeight = storyElement.scrollHeight;
 
+    // Временно раскрываем весь текст
     storyElement.style.maxHeight = "none";
-
+    storyElement.style.height = "auto";
     storyElement.style.overflow = "visible";
 
-    // Ждём перерисовку браузера
-
+    // Ждём обновления страницы
     await new Promise(resolve => requestAnimationFrame(resolve));
 
-    const canvas = await html2canvas(card, {
+    try {
 
-        backgroundColor: "#000000",
+        const canvas = await html2canvas(card, {
 
-        scale: 2,
+            // ВАЖНО: фон картинки НЕ прозрачный
+            backgroundColor: "#000000",
 
-        useCORS: true,
+            // Качество
+            scale: 2,
 
-        allowTaint: false,
+            // Размер строго по карточке
+            width: card.offsetWidth,
+            height: card.scrollHeight,
 
-        logging: false,
+            useCORS: true,
+            allowTaint: false,
 
-        imageTimeout: 0,
+            // Убираем лишние эффекты
+            logging: false,
 
-        removeContainer: true
+            // ВАЖНО для скруглённых углов
+            onclone: function (clonedDocument) {
 
-    });
+                const clonedCard =
+                    clonedDocument.querySelector(".redditCard");
 
-    // Возвращаем всё назад
+                const clonedStory =
+                    clonedDocument.querySelector(".story");
 
-    storyElement.style.maxHeight = oldMaxHeight;
+                if (clonedCard) {
 
-    storyElement.style.overflow = oldOverflow;
+                    clonedCard.style.background = "#000000";
 
-    storyElement.scrollTop = oldScrollTop;
+                    clonedCard.style.borderRadius = "24px";
 
-    // Скачиваем PNG
+                    clonedCard.style.overflow = "hidden";
 
-    const link = document.createElement("a");
+                    clonedCard.style.boxShadow = "none";
 
-    link.download = "reddit-story.png";
+                }
 
-    link.href = canvas.toDataURL("image/png");
+                if (clonedStory) {
 
-    link.click();
+                    clonedStory.style.maxHeight = "none";
+
+                    clonedStory.style.height = "auto";
+
+                    clonedStory.style.overflow = "visible";
+
+                }
+
+            }
+
+        });
+
+        // Восстанавливаем карточку на сайте
+        storyElement.style.maxHeight = oldMaxHeight;
+        storyElement.style.height = oldHeight;
+        storyElement.style.overflow = oldOverflow;
+
+        // Создаём PNG
+        canvas.toBlob(function (blob) {
+
+            if (!blob) {
+
+                alert("Не удалось создать изображение");
+
+                return;
+
+            }
+
+            // Создаём временную ссылку
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+
+            link.href = url;
+
+            link.download = "reddit-story.png";
+
+            // ВАЖНО: добавляем ссылку в DOM
+            document.body.appendChild(link);
+
+            // Запускаем скачивание
+            link.click();
+
+            // Удаляем ссылку
+            setTimeout(function () {
+
+                document.body.removeChild(link);
+
+                URL.revokeObjectURL(url);
+
+            }, 1000);
+
+        }, "image/png");
+
+    } catch (error) {
+
+        // Возвращаем стили даже при ошибке
+        storyElement.style.maxHeight = oldMaxHeight;
+        storyElement.style.height = oldHeight;
+        storyElement.style.overflow = oldOverflow;
+
+        console.error("Ошибка сохранения PNG:", error);
+
+        alert("Ошибка при сохранении изображения. Открой F12 → Console и посмотри ошибку.");
+
+    }
 
 });
