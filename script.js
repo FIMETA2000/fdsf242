@@ -155,22 +155,37 @@ updatePost();
 
 const downloadBtn = document.getElementById("download");
 
-downloadBtn.addEventListener("click", () => {
+downloadBtn.addEventListener("click", async () => {
 
-    html2canvas(document.querySelector(".redditCard"), {
-    backgroundColor: "#000000",
-    scale: 2,
-    useCORS: true,
-    logging: false,
-    removeContainer: true
-}).then(canvas => {
+    const card = document.querySelector(".redditCard");
+
+    const canvas = await html2canvas(card, {
+
+        backgroundColor: "#000000",
+
+        scale: 2,
+
+        useCORS: true,
+
+        allowTaint: true,
+
+        width: card.scrollWidth,
+
+        height: card.scrollHeight,
+
+        windowWidth: card.scrollWidth,
+
+        windowHeight: card.scrollHeight
+
+    });
 
     const link = document.createElement("a");
-    link.download = "reddit-story.png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
 
-});
+    link.download = "reddit-story.png";
+
+    link.href = canvas.toDataURL("image/png");
+
+    link.click();
 
 });
 
