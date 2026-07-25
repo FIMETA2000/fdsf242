@@ -342,17 +342,21 @@ line-height:1.3;
 
 .story{
 
-    font-size:25px;
+font-size:25px;
 
-    line-height:1.75;
+line-height:1.75;
 
-    white-space:pre-wrap;
+white-space:pre-wrap;
 
-    padding-right:10px;
+overflow-y:auto;
 
-    overflow:visible;
+overflow-x:hidden;
 
-    max-height:none;
+max-height:520px;
+
+padding-right:10px;
+
+color:#ffffff;
 
 }
 
