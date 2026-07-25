@@ -158,27 +158,49 @@ const downloadBtn = document.getElementById("download");
 downloadBtn.addEventListener("click", async () => {
 
     const card = document.querySelector(".redditCard");
+    const storyBox = document.querySelector(".story");
+
+    // Запоминаем старые значения
+    const oldMaxHeight = storyBox.style.maxHeight;
+    const oldOverflow = storyBox.style.overflow;
+    const oldHeight = storyBox.style.height;
+
+    // Временно раскрываем весь текст
+    storyBox.style.maxHeight = "none";
+    storyBox.style.height = "auto";
+    storyBox.style.overflow = "visible";
+
+    // Даём браузеру пересчитать размеры
+    await new Promise(resolve => requestAnimationFrame(resolve));
 
     const canvas = await html2canvas(card, {
 
-        backgroundColor: null,
-
         scale: 2,
+
+        backgroundColor: "#000000",
 
         useCORS: true,
 
         allowTaint: true,
 
-        scrollX: 0,
+        logging: false,
 
-        scrollY: 0,
+        width: card.offsetWidth,
 
-        windowWidth: document.documentElement.scrollWidth,
+        height: card.scrollHeight,
 
-        windowHeight: document.documentElement.scrollHeight
+        windowWidth: card.scrollWidth,
+
+        windowHeight: card.scrollHeight
 
     });
 
+    // Восстанавливаем карточку
+    storyBox.style.maxHeight = oldMaxHeight;
+    storyBox.style.overflow = oldOverflow;
+    storyBox.style.height = oldHeight;
+
+    // Создаём PNG
     const link = document.createElement("a");
 
     link.download = "reddit-story.png";
