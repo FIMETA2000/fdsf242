@@ -251,8 +251,6 @@ REDDIT CARD
 
     width:920px;
 
-    min-height:500px;
-
     background:#000;
 
     border-radius:24px;
@@ -263,9 +261,9 @@ REDDIT CARD
 
     box-shadow:0 30px 70px rgba(0,0,0,.55);
 
-    overflow:hidden;
-
     position:relative;
+
+    overflow:hidden;
 
 }
 
@@ -339,15 +337,17 @@ line-height:1.3;
 
 .story{
 
-font-size:25px;
+    font-size:25px;
 
-line-height:1.75;
+    line-height:1.75;
 
-white-space:pre-wrap;
+    white-space:pre-wrap;
 
-overflow:hidden;
+    padding-right:10px;
 
-max-height:520px;
+    overflow:visible;
+
+    max-height:none;
 
 }
 
