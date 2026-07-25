@@ -10,13 +10,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+<!-- Библиотека для создания PNG -->
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
 
-/* =========================================================
+/* =========================================
    RESET
-========================================================= */
+========================================= */
 
 * {
     margin: 0;
@@ -27,26 +28,26 @@
 html,
 body {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
     font-family: Inter, Arial, sans-serif;
-}
-
-/* =========================================================
-   BODY
-========================================================= */
-
-body {
     background: #00ff00;
     color: #ffffff;
+}
+
+/* =========================================
+   MAIN PAGE
+========================================= */
+
+body {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
-/* =========================================================
+/* =========================================
    SIDEBAR
-========================================================= */
+========================================= */
 
 .sidebar {
     position: fixed;
@@ -61,10 +62,11 @@ body {
     overflow-y: auto;
 
     background: #111111;
-    border: 1px solid #242424;
+
+    border: 1px solid #222222;
     border-radius: 24px;
 
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
 
     z-index: 100;
 }
@@ -72,7 +74,6 @@ body {
 .sidebar h1 {
     font-size: 28px;
     margin-bottom: 28px;
-    font-weight: 800;
 }
 
 .section {
@@ -96,11 +97,10 @@ body {
 
     padding: 13px 14px;
 
-    background: #181818;
-
     border: 1px solid #333333;
     border-radius: 12px;
 
+    background: #181818;
     color: #ffffff;
 
     font-family: inherit;
@@ -122,9 +122,9 @@ body {
     line-height: 1.5;
 }
 
-/* =========================================================
+/* =========================================
    BUTTONS
-========================================================= */
+========================================= */
 
 .buttons {
     display: flex;
@@ -143,7 +143,6 @@ body {
     border-radius: 13px;
 
     background: #3265f5;
-
     color: #ffffff;
 
     font-family: inherit;
@@ -152,7 +151,7 @@ body {
 
     cursor: pointer;
 
-    transition: 0.2s;
+    transition: .2s;
 }
 
 .buttons button:hover {
@@ -161,7 +160,7 @@ body {
 }
 
 .buttons button:active {
-    transform: scale(0.98);
+    transform: scale(.98);
 }
 
 #exitOBS {
@@ -172,9 +171,9 @@ body {
     background: #333333;
 }
 
-/* =========================================================
-   PREVIEW
-========================================================= */
+/* =========================================
+   PREVIEW AREA
+========================================= */
 
 .preview {
     position: absolute;
@@ -187,24 +186,19 @@ body {
     transform: translateY(-50%);
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 }
 
-/* =========================================================
-   REDDIT CARD — ОСНОВНАЯ КАРТОЧКА
-========================================================= */
+/* =========================================
+   REDDIT CARD
+========================================= */
 
 .redditCard {
     position: relative;
 
-    width: 1000px;
-
-    /*
-       Высота на экране фиксированная.
-       При обычном просмотре длинный текст скроллится.
-    */
-    height: 800px;
+    width: min(1000px, calc(100vw - 480px));
 
     background: #000000;
 
@@ -214,38 +208,47 @@ body {
 
     overflow: hidden;
 
-    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 25px 70px rgba(0,0,0,.45);
 
     display: flex;
     flex-direction: column;
 }
 
-/* =========================================================
+/*
+   ВАЖНО:
+
+   Карточка НЕ имеет фиксированной высоты.
+   Она растёт вместе с текстом.
+
+   Поэтому при сохранении PNG
+   вся история будет внутри картинки.
+*/
+
+/* =========================================
    HEADER
-========================================================= */
+========================================= */
 
 .redditHeader {
     display: flex;
+
     align-items: center;
 
     gap: 16px;
 
     padding: 35px 38px 0 38px;
-
-    flex-shrink: 0;
 }
 
 .avatar {
     width: 62px;
     height: 62px;
 
+    flex-shrink: 0;
+
     border-radius: 50%;
 
     overflow: hidden;
 
     background: #222222;
-
-    flex-shrink: 0;
 }
 
 .avatar img {
@@ -272,57 +275,39 @@ body {
     font-size: 15px;
 }
 
-/* =========================================================
+/* =========================================
    CONTENT
-========================================================= */
+========================================= */
 
 .cardContent {
     padding: 0 38px;
-
-    flex: 1;
-
-    min-height: 0;
-
-    display: flex;
-    flex-direction: column;
 }
+
+/* =========================================
+   TITLE
+========================================= */
 
 .redditCard h2 {
     margin-top: 30px;
     margin-bottom: 25px;
 
+    color: #ffffff;
+
     font-size: 38px;
+    font-weight: 800;
 
     line-height: 1.25;
 
-    color: #ffffff;
-
-    font-weight: 800;
-
-    /*
-       Очень важно:
-       заголовок не может вылезти за пределы карточки.
-    */
     overflow-wrap: anywhere;
-    word-break: normal;
-
-    flex-shrink: 0;
+    word-break: break-word;
 }
 
-/* =========================================================
-   STORY — ОКНО ПРОСМОТРА
-========================================================= */
+/* =========================================
+   STORY
+========================================= */
 
 .story {
-    flex: 1;
-
-    min-height: 0;
-
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    padding-right: 12px;
-    padding-bottom: 20px;
+    width: 100%;
 
     color: #ffffff;
 
@@ -332,32 +317,30 @@ body {
 
     white-space: pre-wrap;
 
-    /*
-       Главное для длинных слов и русского текста.
-    */
     overflow-wrap: anywhere;
-    word-break: normal;
+    word-break: break-word;
+
+    padding-bottom: 20px;
 }
 
-.story::-webkit-scrollbar {
-    width: 7px;
-}
+/*
+   ВАЖНО:
 
-.story::-webkit-scrollbar-track {
-    background: transparent;
-}
+   НЕТ overflow-y: auto
+   НЕТ max-height
+   НЕТ фиксированной высоты
 
-.story::-webkit-scrollbar-thumb {
-    background: #444444;
-    border-radius: 20px;
-}
+   Поэтому весь текст виден
+   и сохраняется в PNG.
+*/
 
-/* =========================================================
+/* =========================================
    BOTTOM BAR
-========================================================= */
+========================================= */
 
 .bottomBar {
     display: flex;
+
     align-items: center;
 
     gap: 35px;
@@ -369,12 +352,11 @@ body {
     color: #ffffff;
 
     font-size: 20px;
-
-    flex-shrink: 0;
 }
 
 .bottomItem {
     display: flex;
+
     align-items: center;
 
     gap: 8px;
@@ -390,9 +372,9 @@ body {
     line-height: 1;
 }
 
-/* =========================================================
+/* =========================================
    OBS MODE
-========================================================= */
+========================================= */
 
 body.obs {
     background: #00ff00;
@@ -405,28 +387,34 @@ body.obs .sidebar {
 body.obs .preview {
     position: fixed;
 
-    left: 50%;
-    top: 50%;
+    inset: 0;
 
-    right: auto;
+    width: 100%;
+    height: 100%;
 
-    width: auto;
+    margin: 0;
 
-    transform: translate(-50%, -50%);
+    transform: none;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
 }
 
 body.obs .redditCard {
     width: 1200px;
-    height: 850px;
+
+    max-width: calc(100vw - 80px);
+
+    max-height: calc(100vh - 80px);
+
+    overflow-y: auto;
 }
 
-body.obs #exitOBS {
-    display: block !important;
-}
-
-/* =========================================================
-   SIDEBAR SCROLLBAR
-========================================================= */
+/* =========================================
+   SCROLLBAR
+========================================= */
 
 .sidebar::-webkit-scrollbar {
     width: 7px;
@@ -441,11 +429,11 @@ body.obs #exitOBS {
     border-radius: 20px;
 }
 
-/* =========================================================
-   MOBILE / SMALL SCREEN
-========================================================= */
+/* =========================================
+   MOBILE
+========================================= */
 
-@media (max-width: 1400px) {
+@media(max-width: 1400px) {
 
     .sidebar {
         width: 320px;
@@ -459,98 +447,13 @@ body.obs #exitOBS {
         width: calc(100vw - 420px);
     }
 
-}
+    .redditCard h2 {
+        font-size: 32px;
+    }
 
-/* =========================================================
-   EXPORT CLONE
-=========================================================
-
-   Этот класс используется ТОЛЬКО при создании PNG.
-
-   Он НЕ влияет на обычную карточку на странице.
-========================================================= */
-
-.export-card {
-    position: fixed !important;
-
-    left: -100000px !important;
-    top: 0 !important;
-
-    width: 1000px !important;
-
-    height: auto !important;
-
-    min-height: 0 !important;
-
-    background: #000000 !important;
-
-    border-radius: 28px !important;
-
-    overflow: hidden !important;
-
-    display: flex !important;
-
-    flex-direction: column !important;
-
-    box-shadow: none !important;
-
-    border: 1px solid #222222 !important;
-
-    z-index: -9999 !important;
-}
-
-.export-card .redditHeader {
-    flex-shrink: 0 !important;
-}
-
-.export-card .cardContent {
-    display: block !important;
-
-    flex: none !important;
-
-    min-height: 0 !important;
-
-    padding: 0 38px !important;
-}
-
-.export-card h2 {
-    display: block !important;
-
-    width: 100% !important;
-
-    margin-top: 30px !important;
-    margin-bottom: 25px !important;
-
-    flex: none !important;
-
-    overflow-wrap: anywhere !important;
-}
-
-.export-card .story {
-    display: block !important;
-
-    width: 100% !important;
-
-    height: auto !important;
-
-    min-height: 0 !important;
-
-    max-height: none !important;
-
-    overflow: visible !important;
-
-    padding-right: 12px !important;
-    padding-bottom: 20px !important;
-
-    flex: none !important;
-
-    white-space: pre-wrap !important;
-
-    overflow-wrap: anywhere !important;
-}
-
-.export-card .bottomBar {
-    flex-shrink: 0 !important;
+    .story {
+        font-size: 22px;
+    }
 }
 
 </style>
@@ -559,14 +462,13 @@ body.obs #exitOBS {
 
 <body>
 
-<!-- =========================================================
+<!-- =========================================
      SIDEBAR
-========================================================= -->
+========================================= -->
 
 <div class="sidebar">
 
     <h1>Reddit Story Studio</h1>
-
 
     <div class="section">
 
@@ -676,7 +578,10 @@ body.obs #exitOBS {
             Download PNG
         </button>
 
-        <button id="exitOBS" style="display:none;">
+        <button
+            id="exitOBS"
+            style="display:none;"
+        >
             ← Exit OBS
         </button>
 
@@ -685,14 +590,16 @@ body.obs #exitOBS {
 </div>
 
 
-<!-- =========================================================
+<!-- =========================================
      PREVIEW
-========================================================= -->
+========================================= -->
 
 <div class="preview">
 
-    <div class="redditCard" id="redditCard">
-
+    <div
+        class="redditCard"
+        id="redditCard"
+    >
 
         <!-- HEADER -->
 
@@ -702,8 +609,7 @@ body.obs #exitOBS {
 
                 <img
                     id="avatarImage"
-                    src="assets/default-avatar.png"
-                    alt=""
+                    alt="Avatar"
                 >
 
             </div>
@@ -788,7 +694,6 @@ body.obs #exitOBS {
 
         </div>
 
-
     </div>
 
 </div>
@@ -796,9 +701,9 @@ body.obs #exitOBS {
 
 <script>
 
-/* =========================================================
+/* =========================================
    ELEMENTS
-========================================================= */
+========================================= */
 
 const avatarUpload =
     document.getElementById("avatarUpload");
@@ -840,9 +745,9 @@ const downloadBtn =
     document.getElementById("download");
 
 
-/* =========================================================
+/* =========================================
    PREVIEW ELEMENTS
-========================================================= */
+========================================= */
 
 const previewSubreddit =
     document.getElementById("previewSubreddit");
@@ -865,10 +770,13 @@ const previewTitle =
 const previewStory =
     document.getElementById("previewStory");
 
+const redditCard =
+    document.getElementById("redditCard");
 
-/* =========================================================
+
+/* =========================================
    UPDATE POST
-========================================================= */
+========================================= */
 
 function updatePost() {
 
@@ -892,12 +800,13 @@ function updatePost() {
 
     previewStory.textContent =
         story.value;
+
 }
 
 
-/* =========================================================
+/* =========================================
    UPDATE BUTTON
-========================================================= */
+========================================= */
 
 updateBtn.addEventListener(
     "click",
@@ -905,27 +814,31 @@ updateBtn.addEventListener(
 );
 
 
-/* =========================================================
+/* =========================================
    LIVE UPDATE
-========================================================= */
+========================================= */
 
-document
-    .querySelectorAll(
-        "#subreddit, #author, #time, #upvotes, #comments, #title, #story"
-    )
-    .forEach(function(input) {
+[
+    subreddit,
+    author,
+    time,
+    upvotes,
+    comments,
+    title,
+    story
+].forEach(function(input) {
 
-        input.addEventListener(
-            "input",
-            updatePost
-        );
+    input.addEventListener(
+        "input",
+        updatePost
+    );
 
-    });
+});
 
 
-/* =========================================================
+/* =========================================
    AVATAR UPLOAD
-========================================================= */
+========================================= */
 
 avatarUpload.addEventListener(
     "change",
@@ -955,18 +868,26 @@ avatarUpload.addEventListener(
 );
 
 
-/* =========================================================
+/* =========================================
    OBS MODE
-========================================================= */
+========================================= */
 
-function enterOBS() {
+obsBtn.addEventListener(
+    "click",
+    function() {
 
-    document.body.classList.add("obs");
+        document.body.classList.add("obs");
 
-    exitOBS.style.display =
-        "block";
-}
+        exitOBS.style.display =
+            "block";
 
+    }
+);
+
+
+/* =========================================
+   EXIT OBS
+========================================= */
 
 function exitObsMode() {
 
@@ -974,13 +895,8 @@ function exitObsMode() {
 
     exitOBS.style.display =
         "none";
+
 }
-
-
-obsBtn.addEventListener(
-    "click",
-    enterOBS
-);
 
 
 exitOBS.addEventListener(
@@ -989,9 +905,9 @@ exitOBS.addEventListener(
 );
 
 
-/* =========================================================
-   ESCAPE — EXIT OBS
-========================================================= */
+/* =========================================
+   ESCAPE
+========================================= */
 
 document.addEventListener(
     "keydown",
@@ -1007,29 +923,32 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   F11 — TOGGLE OBS
-========================================================= */
+/* =========================================
+   F11
+========================================= */
 
 document.addEventListener(
     "keydown",
     function(event) {
 
-        if (event.key !== "F11") {
-            return;
-        }
+        if (event.key === "F11") {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        if (
-            document.body.classList.contains("obs")
-        ) {
+            if (
+                document.body.classList.contains("obs")
+            ) {
 
-            exitObsMode();
+                exitObsMode();
 
-        } else {
+            } else {
 
-            enterOBS();
+                document.body.classList.add("obs");
+
+                exitOBS.style.display =
+                    "block";
+
+            }
 
         }
 
@@ -1037,320 +956,222 @@ document.addEventListener(
 );
 
 
-/* =========================================================
+/* =========================================
    DOWNLOAD PNG
-=========================================================
-
-   ВАЖНО:
-
-   Мы НЕ изменяем оригинальную карточку.
-
-   Мы:
-
-   1. Клонируем карточку.
-   2. Помещаем клон за пределы экрана.
-   3. Убираем фиксированную высоту.
-   4. Убираем scroll.
-   5. Оставляем фиксированную ширину 1000px.
-   6. Текст переносится по ширине.
-   7. Высота клона увеличивается вниз.
-   8. html2canvas снимает только клон.
-   9. PNG имеет прозрачные углы.
-========================================================= */
+========================================= */
 
 downloadBtn.addEventListener(
     "click",
     async function() {
 
-        /*
-           Защита от повторного клика.
-        */
+        /* ---------------------------------
+           Проверяем библиотеку
+        --------------------------------- */
 
-        if (downloadBtn.dataset.busy === "true") {
+        if (
+            typeof html2canvas === "undefined"
+        ) {
+
+            alert(
+                "html2canvas не загрузился. Проверь подключение к интернету и обнови страницу."
+            );
+
             return;
+
         }
 
-        downloadBtn.dataset.busy = "true";
 
-        const originalText =
-            downloadBtn.textContent;
+        /* ---------------------------------
+           Запоминаем текущий режим
+        --------------------------------- */
 
-        downloadBtn.textContent =
-            "Создание PNG...";
+        const wasOBS =
+            document.body.classList.contains("obs");
+
+
+        /* ---------------------------------
+           Если OBS включён,
+           временно выключаем его
+           для правильного размера
+        --------------------------------- */
+
+        if (wasOBS) {
+
+            document.body.classList.remove("obs");
+
+        }
+
+
+        /* ---------------------------------
+           Ждём перерисовку
+        --------------------------------- */
+
+        await new Promise(function(resolve) {
+
+            requestAnimationFrame(function() {
+
+                requestAnimationFrame(resolve);
+
+            });
+
+        });
+
+
+        /* ---------------------------------
+           Сохраняем исходные стили
+        --------------------------------- */
+
+        const oldWidth =
+            redditCard.style.width;
+
+        const oldMaxWidth =
+            redditCard.style.maxWidth;
+
+        const oldHeight =
+            redditCard.style.height;
+
+        const oldMaxHeight =
+            redditCard.style.maxHeight;
+
+        const oldOverflow =
+            redditCard.style.overflow;
+
+
+        /* ---------------------------------
+           ВАЖНО:
+
+           Перед сохранением карточка
+           должна полностью раскрыться.
+
+           Никаких ограничений высоты.
+        --------------------------------- */
+
+        redditCard.style.width =
+            redditCard.offsetWidth + "px";
+
+        redditCard.style.maxWidth =
+            "none";
+
+        redditCard.style.height =
+            "auto";
+
+        redditCard.style.maxHeight =
+            "none";
+
+        redditCard.style.overflow =
+            "hidden";
+
+
+        /* ---------------------------------
+           Ждём пересчёт размеров
+        --------------------------------- */
+
+        await new Promise(function(resolve) {
+
+            requestAnimationFrame(function() {
+
+                requestAnimationFrame(resolve);
+
+            });
+
+        });
 
 
         try {
 
-            /*
-               Получаем оригинальную карточку.
-            */
+            /* ---------------------------------
+               Создаём PNG
 
-            const originalCard =
-                document.getElementById(
-                    "redditCard"
-                );
+               ВАЖНО:
 
+               backgroundColor: null
 
-            if (!originalCard) {
+               Это делает область
+               ВНЕ карточки прозрачной.
 
-                throw new Error(
-                    "redditCard не найден"
-                );
-
-            }
-
-
-            /*
-               Создаём КЛОН.
-
-               Оригинальная карточка
-               вообще не изменяется.
-            */
-
-            const clone =
-                originalCard.cloneNode(true);
-
-
-            /*
-               Добавляем специальный класс
-               для экспортной версии.
-            */
-
-            clone.classList.add(
-                "export-card"
-            );
-
-
-            /*
-               Важно:
-               добавляем клон прямо в body.
-            */
-
-            document.body.appendChild(
-                clone
-            );
-
-
-            /*
-               Получаем элементы клона.
-            */
-
-            const clonedStory =
-                clone.querySelector(
-                    ".story"
-                );
-
-            const clonedCardContent =
-                clone.querySelector(
-                    ".cardContent"
-                );
-
-
-            /*
-               Убираем ограничение прокрутки.
-
-               Теперь история полностью
-               видна внутри клона.
-            */
-
-            clonedStory.style.overflow =
-                "visible";
-
-            clonedStory.style.overflowY =
-                "visible";
-
-            clonedStory.style.overflowX =
-                "visible";
-
-            clonedStory.style.height =
-                "auto";
-
-            clonedStory.style.maxHeight =
-                "none";
-
-            clonedStory.style.flex =
-                "none";
-
-
-            /*
-               Контент тоже больше
-               не растягивается через flex.
-            */
-
-            clonedCardContent.style.flex =
-                "none";
-
-            clonedCardContent.style.height =
-                "auto";
-
-
-            /*
-               Принудительно задаём ширину.
-
-               Это главное исправление
-               против узкой вертикальной картинки.
-            */
-
-            clone.style.width =
-                "1000px";
-
-            clone.style.maxWidth =
-                "1000px";
-
-            clone.style.minWidth =
-                "1000px";
-
-
-            /*
-               Даём браузеру пересчитать
-               размеры текста.
-            */
-
-            await new Promise(
-                function(resolve) {
-
-                    requestAnimationFrame(
-                        function() {
-
-                            requestAnimationFrame(
-                                resolve
-                            );
-
-                        }
-                    );
-
-                }
-            );
-
-
-            /*
-               Получаем реальные размеры
-               КЛОНА после раскрытия текста.
-            */
-
-            const exportWidth =
-                clone.scrollWidth;
-
-            const exportHeight =
-                clone.scrollHeight;
-
-
-            /*
-               Дополнительная проверка.
-
-               Если браузер каким-то образом
-               дал неправильный размер,
-               останавливаем экспорт.
-            */
-
-            if (
-                exportWidth < 500 ||
-                exportHeight < 100
-            ) {
-
-                throw new Error(
-                    "Неверный размер экспортируемой карточки: " +
-                    exportWidth +
-                    "x" +
-                    exportHeight
-                );
-
-            }
-
-
-            /*
-               Создаём canvas.
-
-               backgroundColor = null
-
-               означает прозрачный фон.
-
-               Поэтому за пределами
-               скруглённых углов ничего нет.
-            */
+               Сама карточка остаётся чёрной,
+               потому что у неё background:#000.
+            --------------------------------- */
 
             const canvas =
                 await html2canvas(
-                    clone,
+                    redditCard,
                     {
 
-                        width:
-                            exportWidth,
-
-                        height:
-                            exportHeight,
-
-                        windowWidth:
-                            exportWidth,
-
-                        windowHeight:
-                            exportHeight,
+                        backgroundColor: null,
 
                         scale: 2,
 
-                        backgroundColor:
-                            null,
+                        useCORS: true,
 
-                        useCORS:
-                            true,
+                        allowTaint: false,
 
-                        allowTaint:
-                            false,
+                        logging: false,
 
-                        logging:
-                            false,
+                        imageTimeout: 15000,
 
-                        imageTimeout:
-                            15000,
+                        removeContainer: true,
 
-                        removeContainer:
-                            true,
+                        width:
+                            redditCard.scrollWidth,
 
-                        /*
-                           Дополнительная защита
-                           скруглённых углов.
-                        */
+                        height:
+                            redditCard.scrollHeight,
 
                         onclone:
-                            function(
-                                clonedDocument
-                            ) {
+                            function(clonedDocument) {
 
-                                const exportCard =
-                                    clonedDocument.querySelector(
-                                        ".export-card"
+                                const clonedCard =
+                                    clonedDocument.getElementById(
+                                        "redditCard"
                                     );
 
-                                if (
-                                    exportCard
-                                ) {
+                                if (clonedCard) {
 
-                                    exportCard.style.width =
-                                        "1000px";
+                                    /* Только карточка */
 
-                                    exportCard.style.maxWidth =
-                                        "1000px";
-
-                                    exportCard.style.minWidth =
-                                        "1000px";
-
-                                    exportCard.style.height =
-                                        "auto";
-
-                                    exportCard.style.maxHeight =
-                                        "none";
-
-                                    exportCard.style.overflow =
-                                        "hidden";
-
-                                    exportCard.style.borderRadius =
-                                        "28px";
-
-                                    exportCard.style.background =
+                                    clonedCard.style.background =
                                         "#000000";
 
-                                    exportCard.style.boxShadow =
+                                    /* Скруглённые углы */
+
+                                    clonedCard.style.borderRadius =
+                                        "28px";
+
+                                    /* Никакого лишнего квадрата */
+
+                                    clonedCard.style.boxShadow =
                                         "none";
+
+                                    /* Содержимое не обрезается */
+
+                                    clonedCard.style.height =
+                                        "auto";
+
+                                    clonedCard.style.maxHeight =
+                                        "none";
+
+                                    clonedCard.style.overflow =
+                                        "hidden";
+
+                                }
+
+
+                                const clonedStory =
+                                    clonedDocument.getElementById(
+                                        "previewStory"
+                                    );
+
+                                if (clonedStory) {
+
+                                    clonedStory.style.height =
+                                        "auto";
+
+                                    clonedStory.style.maxHeight =
+                                        "none";
+
+                                    clonedStory.style.overflow =
+                                        "visible";
 
                                 }
 
@@ -1360,54 +1181,68 @@ downloadBtn.addEventListener(
                 );
 
 
-            /*
-               Теперь удаляем временный клон.
+            /* ---------------------------------
+               ВОЗВРАЩАЕМ СТИЛИ
+            --------------------------------- */
 
-               Оригинальная карточка
-               остаётся нетронутой.
-            */
+            redditCard.style.width =
+                oldWidth;
 
-            clone.remove();
+            redditCard.style.maxWidth =
+                oldMaxWidth;
+
+            redditCard.style.height =
+                oldHeight;
+
+            redditCard.style.maxHeight =
+                oldMaxHeight;
+
+            redditCard.style.overflow =
+                oldOverflow;
 
 
-            /*
-               Превращаем canvas
-               в PNG Blob.
+            /* ---------------------------------
+               ВОЗВРАЩАЕМ OBS
+            --------------------------------- */
 
-               Blob надёжнее, чем
-               прямой canvas.toDataURL().
-            */
+            if (wasOBS) {
+
+                document.body.classList.add("obs");
+
+            }
+
+
+            /* ---------------------------------
+               PNG → BLOB
+
+               Это надёжнее, чем
+               canvas.toDataURL + link.click()
+            --------------------------------- */
 
             canvas.toBlob(
                 function(blob) {
 
                     if (!blob) {
 
-                        throw new Error(
-                            "PNG Blob не создан"
+                        alert(
+                            "Не удалось создать PNG."
                         );
+
+                        return;
 
                     }
 
 
-                    /*
-                       Создаём временный URL.
-                    */
+                    /* Создаём временный URL */
 
                     const url =
-                        URL.createObjectURL(
-                            blob
-                        );
+                        URL.createObjectURL(blob);
 
 
-                    /*
-                       Создаём ссылку.
-                    */
+                    /* Создаём ссылку */
 
                     const link =
-                        document.createElement(
-                            "a"
-                        );
+                        document.createElement("a");
 
                     link.href =
                         url;
@@ -1415,39 +1250,35 @@ downloadBtn.addEventListener(
                     link.download =
                         "reddit-story.png";
 
-                    /*
-                       Добавляем ссылку
-                       в DOM.
-                    */
-
-                    document.body.appendChild(
-                        link
-                    );
+                    link.style.display =
+                        "none";
 
 
-                    /*
-                       Запускаем скачивание.
-                    */
+                    /* Добавляем в страницу */
+
+                    document.body.appendChild(link);
+
+
+                    /* Запускаем скачивание */
 
                     link.click();
 
 
-                    /*
-                       Удаляем ссылку
-                       после скачивания.
-                    */
+                    /* Удаляем ссылку */
 
                     setTimeout(
                         function() {
 
-                            link.remove();
+                            document.body.removeChild(
+                                link
+                            );
 
                             URL.revokeObjectURL(
                                 url
                             );
 
                         },
-                        1500
+                        2000
                     );
 
                 },
@@ -1455,45 +1286,44 @@ downloadBtn.addEventListener(
             );
 
 
-        } catch (error) {
+        } catch(error) {
 
-            /*
-               Если произошла ошибка,
-               удаляем временный клон.
-            */
+            /* ---------------------------------
+               ВОЗВРАЩАЕМ СТИЛИ ПРИ ОШИБКЕ
+            --------------------------------- */
 
-            const oldClone =
-                document.querySelector(
-                    ".export-card"
-                );
+            redditCard.style.width =
+                oldWidth;
 
-            if (oldClone) {
-                oldClone.remove();
+            redditCard.style.maxWidth =
+                oldMaxWidth;
+
+            redditCard.style.height =
+                oldHeight;
+
+            redditCard.style.maxHeight =
+                oldMaxHeight;
+
+            redditCard.style.overflow =
+                oldOverflow;
+
+
+            if (wasOBS) {
+
+                document.body.classList.add("obs");
+
             }
 
 
             console.error(
-                "Ошибка экспорта PNG:",
+                "PNG ERROR:",
                 error
             );
 
 
             alert(
-                "Ошибка при создании PNG.\n\n" +
-                error.message
+                "Ошибка создания PNG. Открой F12 → Console и посмотри ошибку."
             );
-
-        } finally {
-
-            /*
-               Возвращаем кнопку.
-            */
-
-            downloadBtn.dataset.busy =
-                "false";
-
-            downloadBtn.textContent =
-                originalText;
 
         }
 
@@ -1501,9 +1331,43 @@ downloadBtn.addEventListener(
 );
 
 
-/* =========================================================
-   START
-========================================================= */
+/* =========================================
+   DEFAULT AVATAR
+========================================= */
+
+avatarImage.src =
+    "data:image/svg+xml;charset=UTF-8," +
+    encodeURIComponent(`
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="100"
+            height="100"
+            viewBox="0 0 100 100"
+        >
+            <rect
+                width="100"
+                height="100"
+                fill="#222222"
+            />
+            <circle
+                cx="50"
+                cy="38"
+                r="18"
+                fill="#777777"
+            />
+            <path
+                d="M20 90
+                   C20 68 32 58 50 58
+                   C68 58 80 68 80 90"
+                fill="#777777"
+            />
+        </svg>
+    `);
+
+
+/* =========================================
+   INITIAL UPDATE
+========================================= */
 
 updatePost();
 
