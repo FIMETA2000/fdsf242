@@ -161,7 +161,7 @@ downloadBtn.addEventListener("click", async () => {
 
     const canvas = await html2canvas(card, {
 
-        backgroundColor: "#000000",
+        backgroundColor: null,
 
         scale: 2,
 
@@ -169,13 +169,13 @@ downloadBtn.addEventListener("click", async () => {
 
         allowTaint: true,
 
-        width: card.scrollWidth,
+        scrollX: 0,
 
-        height: card.scrollHeight,
+        scrollY: 0,
 
-        windowWidth: card.scrollWidth,
+        windowWidth: document.documentElement.scrollWidth,
 
-        windowHeight: card.scrollHeight
+        windowHeight: document.documentElement.scrollHeight
 
     });
 
