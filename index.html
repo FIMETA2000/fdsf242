@@ -956,229 +956,154 @@ document.addEventListener(
 );
 
 
-/* =========================================
+/* =========================
    DOWNLOAD PNG
-========================================= */
+========================= */
 
-downloadBtn.addEventListener(
-    "click",
-    async function() {
+downloadBtn.addEventListener("click", async function () {
 
-        /* ---------------------------------
-           Проверяем библиотеку
-        --------------------------------- */
+    const card = document.getElementById("redditCard");
 
-        if (
-            typeof html2canvas === "undefined"
-        ) {
+    if (!card) {
+        alert("Карточка не найдена");
+        return;
+    }
 
-            alert(
-                "html2canvas не загрузился. Проверь подключение к интернету и обнови страницу."
-            );
+    // Сохраняем исходные настройки карточки
+    const oldScrollTop = card.scrollTop;
 
-            return;
+    // Временно убираем тень,
+    // чтобы за пределами карточки ничего не появлялось
+    const oldBoxShadow = card.style.boxShadow;
 
-        }
+    card.style.boxShadow = "none";
 
+    try {
 
-        /* ---------------------------------
-           Запоминаем текущий режим
-        --------------------------------- */
+        // Ждём перерисовку
+        await new Promise(resolve =>
+            requestAnimationFrame(resolve)
+        );
 
-        const wasOBS =
-            document.body.classList.contains("obs");
+        // Снимаем РОВНО текущую карточку
+        // Никакого auto height
+        // Никакого раскрытия текста
+        const canvas = await html2canvas(card, {
 
+            width: card.offsetWidth,
+            height: card.offsetHeight,
 
-        /* ---------------------------------
-           Если OBS включён,
-           временно выключаем его
-           для правильного размера
-        --------------------------------- */
+            scale: 2,
 
-        if (wasOBS) {
+            backgroundColor: null,
 
-            document.body.classList.remove("obs");
+            useCORS: true,
 
-        }
+            allowTaint: true,
 
+            logging: false,
 
-        /* ---------------------------------
-           Ждём перерисовку
-        --------------------------------- */
+            removeContainer: true,
 
-        await new Promise(function(resolve) {
+            // Важно для круглых углов
+            onclone: function (clonedDocument) {
 
-            requestAnimationFrame(function() {
+                const clonedCard =
+                    clonedDocument.getElementById("redditCard");
 
-                requestAnimationFrame(resolve);
+                if (clonedCard) {
 
-            });
+                    clonedCard.style.width =
+                        card.offsetWidth + "px";
 
-        });
+                    clonedCard.style.height =
+                        card.offsetHeight + "px";
 
+                    clonedCard.style.maxWidth = "none";
 
-        /* ---------------------------------
-           Сохраняем исходные стили
-        --------------------------------- */
+                    clonedCard.style.maxHeight = "none";
 
-        const oldWidth =
-            redditCard.style.width;
+                    clonedCard.style.borderRadius = "28px";
 
-        const oldMaxWidth =
-            redditCard.style.maxWidth;
+                    clonedCard.style.overflow = "hidden";
 
-        const oldHeight =
-            redditCard.style.height;
+                    clonedCard.style.boxShadow = "none";
 
-        const oldMaxHeight =
-            redditCard.style.maxHeight;
+                    clonedCard.style.background = "#000000";
 
-        const oldOverflow =
-            redditCard.style.overflow;
+                }
 
-
-        /* ---------------------------------
-           ВАЖНО:
-
-           Перед сохранением карточка
-           должна полностью раскрыться.
-
-           Никаких ограничений высоты.
-        --------------------------------- */
-
-        redditCard.style.width =
-            redditCard.offsetWidth + "px";
-
-        redditCard.style.maxWidth =
-            "none";
-
-        redditCard.style.height =
-            "auto";
-
-        redditCard.style.maxHeight =
-            "none";
-
-        redditCard.style.overflow =
-            "hidden";
-
-
-        /* ---------------------------------
-           Ждём пересчёт размеров
-        --------------------------------- */
-
-        await new Promise(function(resolve) {
-
-            requestAnimationFrame(function() {
-
-                requestAnimationFrame(resolve);
-
-            });
+            }
 
         });
 
+        // Восстанавливаем карточку
+        card.style.boxShadow = oldBoxShadow;
 
-        try {
-
-            /* ---------------------------------
-               Создаём PNG
-
-               ВАЖНО:
-
-               backgroundColor: null
-
-               Это делает область
-               ВНЕ карточки прозрачной.
-
-               Сама карточка остаётся чёрной,
-               потому что у неё background:#000.
-            --------------------------------- */
-
-            const canvas =
-                await html2canvas(
-                    redditCard,
-                    {
-
-                        backgroundColor: null,
-
-                        scale: 2,
-
-                        useCORS: true,
-
-                        allowTaint: false,
-
-                        logging: false,
-
-                        imageTimeout: 15000,
-
-                        removeContainer: true,
-
-                        width:
-                            redditCard.scrollWidth,
-
-                        height:
-                            redditCard.scrollHeight,
-
-                        onclone:
-                            function(clonedDocument) {
-
-                                const clonedCard =
-                                    clonedDocument.getElementById(
-                                        "redditCard"
-                                    );
-
-                                if (clonedCard) {
-
-                                    /* Только карточка */
-
-                                    clonedCard.style.background =
-                                        "#000000";
-
-                                    /* Скруглённые углы */
-
-                                    clonedCard.style.borderRadius =
-                                        "28px";
-
-                                    /* Никакого лишнего квадрата */
-
-                                    clonedCard.style.boxShadow =
-                                        "none";
-
-                                    /* Содержимое не обрезается */
-
-                                    clonedCard.style.height =
-                                        "auto";
-
-                                    clonedCard.style.maxHeight =
-                                        "none";
-
-                                    clonedCard.style.overflow =
-                                        "hidden";
-
-                                }
+        card.scrollTop = oldScrollTop;
 
 
-                                const clonedStory =
-                                    clonedDocument.getElementById(
-                                        "previewStory"
-                                    );
+        // =========================
+        // СОЗДАЁМ PNG
+        // =========================
 
-                                if (clonedStory) {
+        canvas.toBlob(function(blob) {
 
-                                    clonedStory.style.height =
-                                        "auto";
+            if (!blob) {
 
-                                    clonedStory.style.maxHeight =
-                                        "none";
+                alert("Не удалось создать PNG");
 
-                                    clonedStory.style.overflow =
-                                        "visible";
+                return;
 
-                                }
+            }
 
-                            }
+            const url =
+                URL.createObjectURL(blob);
 
-                    }
-                );
+            const link =
+                document.createElement("a");
+
+            link.style.display = "none";
+
+            link.href = url;
+
+            link.download =
+                "reddit-story.png";
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            setTimeout(function() {
+
+                document.body.removeChild(link);
+
+                URL.revokeObjectURL(url);
+
+            }, 1000);
+
+        }, "image/png");
+
+
+    } catch (error) {
+
+        // Восстанавливаем карточку даже если произошла ошибка
+        card.style.boxShadow = oldBoxShadow;
+
+        card.scrollTop = oldScrollTop;
+
+        console.error(
+            "Ошибка сохранения PNG:",
+            error
+        );
+
+        alert(
+            "Ошибка при создании PNG. Открой F12 → Console."
+        );
+
+    }
+
+});
 
 
             /* ---------------------------------
