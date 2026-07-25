@@ -249,26 +249,23 @@ REDDIT CARD
 
 .redditCard{
 
-width:920px;
+    width:920px;
 
-max-height:860px;
+    min-height:500px;
 
-overflow:hidden;
+    background:#000;
 
-background:#000 !important;
-opacity:2 !important;
+    border-radius:24px;
 
-border-radius:24px;
+    padding:35px;
 
-padding:35px;
+    border:1px solid rgba(255,255,255,.12);
 
-border:1px solid rgba(255,255,255,.06);
+    box-shadow:0 30px 70px rgba(0,0,0,.55);
 
-box-shadow:
+    overflow:hidden;
 
-0 30px 70px rgba(0,0,0,.55);
-
-animation:appear .8s ease;
+    position:relative;
 
 }
 
