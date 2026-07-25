@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,16 +9,16 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- Библиотека для создания PNG -->
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
 
-/* =========================================
+/* ========================================
    RESET
-========================================= */
+======================================== */
 
 * {
     margin: 0;
@@ -28,26 +29,23 @@
 html,
 body {
     width: 100%;
-    min-height: 100%;
+    height: 100%;
+    overflow: hidden;
     font-family: Inter, Arial, sans-serif;
     background: #00ff00;
-    color: #ffffff;
+    color: white;
 }
-
-/* =========================================
-   MAIN PAGE
-========================================= */
 
 body {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 
-/* =========================================
+
+/* ========================================
    SIDEBAR
-========================================= */
+======================================== */
 
 .sidebar {
     position: fixed;
@@ -57,16 +55,17 @@ body {
     width: 340px;
     height: calc(100vh - 60px);
 
-    padding: 28px;
-
     overflow-y: auto;
+
+    padding: 28px;
 
     background: #111111;
 
-    border: 1px solid #222222;
     border-radius: 24px;
 
-    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    border: 1px solid #222222;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
 
     z-index: 100;
 }
@@ -88,22 +87,27 @@ body {
     color: #dddddd;
 
     font-size: 14px;
+
     font-weight: 700;
 }
 
 .section input,
 .section textarea {
+
     width: 100%;
 
     padding: 13px 14px;
 
-    border: 1px solid #333333;
     border-radius: 12px;
 
+    border: 1px solid #333333;
+
     background: #181818;
-    color: #ffffff;
+
+    color: white;
 
     font-family: inherit;
+
     font-size: 14px;
 
     outline: none;
@@ -111,10 +115,13 @@ body {
 
 .section input:focus,
 .section textarea:focus {
+
     border-color: #4d7cff;
+
 }
 
 .section textarea {
+
     height: 220px;
 
     resize: none;
@@ -122,12 +129,15 @@ body {
     line-height: 1.5;
 }
 
-/* =========================================
+
+/* ========================================
    BUTTONS
-========================================= */
+======================================== */
 
 .buttons {
+
     display: flex;
+
     flex-direction: column;
 
     gap: 12px;
@@ -136,17 +146,23 @@ body {
 }
 
 .buttons button {
+
     width: 100%;
+
     height: 52px;
 
     border: none;
+
     border-radius: 13px;
 
     background: #3265f5;
-    color: #ffffff;
+
+    color: white;
 
     font-family: inherit;
+
     font-size: 15px;
+
     font-weight: 700;
 
     cursor: pointer;
@@ -155,30 +171,42 @@ body {
 }
 
 .buttons button:hover {
+
     background: #4678ff;
+
     transform: translateY(-2px);
+
 }
 
 .buttons button:active {
+
     transform: scale(.98);
+
 }
 
 #exitOBS {
+
     background: #222222;
+
 }
 
 #exitOBS:hover {
+
     background: #333333;
+
 }
 
-/* =========================================
-   PREVIEW AREA
-========================================= */
+
+/* ========================================
+   PREVIEW
+======================================== */
 
 .preview {
+
     position: absolute;
 
     left: 400px;
+
     right: 40px;
 
     top: 50%;
@@ -188,47 +216,43 @@ body {
     display: flex;
 
     justify-content: center;
+
     align-items: center;
 }
 
-/* =========================================
+
+/* ========================================
    REDDIT CARD
-========================================= */
+======================================== */
 
 .redditCard {
+
     position: relative;
 
     width: min(1000px, calc(100vw - 480px));
 
     background: #000000;
 
-    border: 1px solid #222222;
-
     border-radius: 28px;
+
+    border: 1px solid #222222;
 
     overflow: hidden;
 
     box-shadow: 0 25px 70px rgba(0,0,0,.45);
 
     display: flex;
+
     flex-direction: column;
 }
 
-/*
-   ВАЖНО:
 
-   Карточка НЕ имеет фиксированной высоты.
-   Она растёт вместе с текстом.
-
-   Поэтому при сохранении PNG
-   вся история будет внутри картинки.
-*/
-
-/* =========================================
+/* ========================================
    HEADER
-========================================= */
+======================================== */
 
 .redditHeader {
+
     display: flex;
 
     align-items: center;
@@ -236,38 +260,45 @@ body {
     gap: 16px;
 
     padding: 35px 38px 0 38px;
+
+    flex-shrink: 0;
 }
 
 .avatar {
-    width: 62px;
-    height: 62px;
 
-    flex-shrink: 0;
+    width: 62px;
+
+    height: 62px;
 
     border-radius: 50%;
 
     overflow: hidden;
 
     background: #222222;
+
+    flex-shrink: 0;
 }
 
 .avatar img {
-    display: block;
 
     width: 100%;
+
     height: 100%;
 
     object-fit: cover;
 }
 
 .subreddit {
+
     font-size: 21px;
+
     font-weight: 800;
 
     color: #ffffff;
 }
 
 .meta {
+
     margin-top: 5px;
 
     color: #999999;
@@ -275,70 +306,59 @@ body {
     font-size: 15px;
 }
 
-/* =========================================
+
+/* ========================================
    CONTENT
-========================================= */
+======================================== */
 
 .cardContent {
+
     padding: 0 38px;
+
+    display: flex;
+
+    flex-direction: column;
 }
 
-/* =========================================
-   TITLE
-========================================= */
-
 .redditCard h2 {
+
     margin-top: 30px;
+
     margin-bottom: 25px;
 
-    color: #ffffff;
-
     font-size: 38px;
-    font-weight: 800;
 
     line-height: 1.25;
 
-    overflow-wrap: anywhere;
-    word-break: break-word;
+    color: #ffffff;
+
+    font-weight: 800;
 }
 
-/* =========================================
-   STORY
-========================================= */
-
 .story {
-    width: 100%;
-
-    color: #ffffff;
 
     font-size: 25px;
 
     line-height: 1.65;
 
+    color: #ffffff;
+
     white-space: pre-wrap;
 
-    overflow-wrap: anywhere;
-    word-break: break-word;
-
     padding-bottom: 20px;
+
+    overflow-wrap: break-word;
+
+    word-break: normal;
 }
 
-/*
-   ВАЖНО:
 
-   НЕТ overflow-y: auto
-   НЕТ max-height
-   НЕТ фиксированной высоты
-
-   Поэтому весь текст виден
-   и сохраняется в PNG.
-*/
-
-/* =========================================
+/* ========================================
    BOTTOM BAR
-========================================= */
+======================================== */
 
 .bottomBar {
+
     display: flex;
 
     align-items: center;
@@ -347,14 +367,17 @@ body {
 
     padding: 20px 38px 30px 38px;
 
-    background: #000000;
-
     color: #ffffff;
 
     font-size: 20px;
+
+    flex-shrink: 0;
+
+    background: #000000;
 }
 
 .bottomItem {
+
     display: flex;
 
     align-items: center;
@@ -363,420 +386,383 @@ body {
 }
 
 .upvoteIcon {
+
     font-size: 24px;
+
     line-height: 1;
 }
 
 .commentIcon {
+
     font-size: 22px;
+
     line-height: 1;
 }
 
-/* =========================================
+
+/* ========================================
    OBS MODE
-========================================= */
+======================================== */
 
 body.obs {
+
     background: #00ff00;
 }
 
 body.obs .sidebar {
+
     display: none;
 }
 
 body.obs .preview {
+
     position: fixed;
 
     inset: 0;
 
     width: 100%;
-    height: 100%;
 
-    margin: 0;
+    height: 100%;
 
     transform: none;
 
     display: flex;
 
-    justify-content: center;
     align-items: center;
+
+    justify-content: center;
 }
 
 body.obs .redditCard {
+
     width: 1200px;
 
     max-width: calc(100vw - 80px);
-
-    max-height: calc(100vh - 80px);
-
-    overflow-y: auto;
 }
 
-/* =========================================
+
+/* ========================================
    SCROLLBAR
-========================================= */
+======================================== */
 
-.sidebar::-webkit-scrollbar {
-    width: 7px;
+::-webkit-scrollbar {
+
+    width: 8px;
 }
 
-.sidebar::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
+
     background: #111111;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
+
     background: #444444;
+
     border-radius: 20px;
 }
 
-/* =========================================
+
+/* ========================================
    MOBILE
-========================================= */
+======================================== */
 
 @media(max-width: 1400px) {
 
     .sidebar {
+
         width: 320px;
     }
 
     .preview {
+
         left: 370px;
     }
 
     .redditCard {
+
         width: calc(100vw - 420px);
     }
 
-    .redditCard h2 {
-        font-size: 32px;
-    }
-
-    .story {
-        font-size: 22px;
-    }
 }
 
 </style>
+
 </head>
 
 
 <body>
 
-<!-- =========================================
+
+<!-- ========================================
      SIDEBAR
-========================================= -->
+======================================== -->
 
 <div class="sidebar">
 
-    <h1>Reddit Story Studio</h1>
-
-    <div class="section">
-
-        <label>Avatar</label>
-
-        <input
-            type="file"
-            id="avatarUpload"
-            accept="image/*"
-        >
-
-    </div>
+<h1>Reddit Story Studio</h1>
 
 
-    <div class="section">
+<div class="section">
 
-        <label>Subreddit</label>
+<label>Avatar</label>
 
-        <input
-            id="subreddit"
-            value="r/LetsNotMeet"
-        >
-
-    </div>
-
-
-    <div class="section">
-
-        <label>Author</label>
-
-        <input
-            id="author"
-            value="u/Anonymous"
-        >
-
-    </div>
-
-
-    <div class="section">
-
-        <label>Time</label>
-
-        <input
-            id="time"
-            value="8 hr. ago"
-        >
-
-    </div>
-
-
-    <div class="section">
-
-        <label>Upvotes</label>
-
-        <input
-            id="upvotes"
-            value="18.2k"
-        >
-
-    </div>
-
-
-    <div class="section">
-
-        <label>Comments</label>
-
-        <input
-            id="comments"
-            value="482"
-        >
-
-    </div>
-
-
-    <div class="section">
-
-        <label>Story Title</label>
-
-        <input
-            id="title"
-            value="Something Happened Last Night"
-        >
-
-    </div>
-
-
-    <div class="section">
-
-        <label>Story</label>
-
-        <textarea id="story">Paste your Reddit story here...</textarea>
-
-    </div>
-
-
-    <div class="buttons">
-
-        <button id="update">
-            Update
-        </button>
-
-        <button id="obs">
-            OBS Mode
-        </button>
-
-        <button id="download">
-            Download PNG
-        </button>
-
-        <button
-            id="exitOBS"
-            style="display:none;"
-        >
-            ← Exit OBS
-        </button>
-
-    </div>
+<input
+type="file"
+id="avatarUpload"
+accept="image/*">
 
 </div>
 
 
-<!-- =========================================
+<div class="section">
+
+<label>Subreddit</label>
+
+<input
+id="subreddit"
+value="r/LetsNotMeet">
+
+</div>
+
+
+<div class="section">
+
+<label>Author</label>
+
+<input
+id="author"
+value="u/Anonymous">
+
+</div>
+
+
+<div class="section">
+
+<label>Time</label>
+
+<input
+id="time"
+value="8 hr. ago">
+
+</div>
+
+
+<div class="section">
+
+<label>Upvotes</label>
+
+<input
+id="upvotes"
+value="18.2k">
+
+</div>
+
+
+<div class="section">
+
+<label>Comments</label>
+
+<input
+id="comments"
+value="482">
+
+</div>
+
+
+<div class="section">
+
+<label>Story Title</label>
+
+<input
+id="title"
+value="Something Happened Last Night">
+
+</div>
+
+
+<div class="section">
+
+<label>Story</label>
+
+<textarea id="story">Paste your Reddit story here...</textarea>
+
+</div>
+
+
+<div class="buttons">
+
+<button id="update">
+Update
+</button>
+
+<button id="obs">
+OBS Mode
+</button>
+
+<button id="download">
+Download PNG
+</button>
+
+<button id="exitOBS" style="display:none;">
+← Exit OBS
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ========================================
      PREVIEW
-========================================= -->
+======================================== -->
 
 <div class="preview">
 
-    <div
-        class="redditCard"
-        id="redditCard"
-    >
-
-        <!-- HEADER -->
-
-        <div class="redditHeader">
-
-            <div class="avatar">
-
-                <img
-                    id="avatarImage"
-                    alt="Avatar"
-                >
-
-            </div>
+<div class="redditCard" id="redditCard">
 
 
-            <div>
+<!-- HEADER -->
 
-                <div
-                    class="subreddit"
-                    id="previewSubreddit"
-                >
-                    r/LetsNotMeet
-                </div>
+<div class="redditHeader">
 
+<div class="avatar">
 
-                <div class="meta">
+<img
+id="avatarImage"
+src="assets/default-avatar.png">
 
-                    <span id="previewAuthor">
-                        u/Anonymous
-                    </span>
+</div>
 
-                    &nbsp;•&nbsp;
+<div>
 
-                    <span id="previewTime">
-                        8 hr. ago
-                    </span>
+<div
+class="subreddit"
+id="previewSubreddit">
+r/LetsNotMeet
+</div>
 
-                </div>
+<div class="meta">
 
-            </div>
+<span id="previewAuthor">
+u/Anonymous
+</span>
 
-        </div>
+&nbsp;•&nbsp;
 
+<span id="previewTime">
+8 hr. ago
+</span>
 
-        <!-- CONTENT -->
+</div>
 
-        <div class="cardContent">
+</div>
 
-            <h2 id="previewTitle">
-                Something Happened Last Night
-            </h2>
-
-
-            <div
-                class="story"
-                id="previewStory"
-            >
-                Paste your Reddit story here...
-            </div>
-
-        </div>
+</div>
 
 
-        <!-- BOTTOM -->
+<!-- CONTENT -->
 
-        <div class="bottomBar">
+<div class="cardContent">
 
-            <div class="bottomItem">
+<h2 id="previewTitle">
+Something Happened Last Night
+</h2>
 
-                <span class="upvoteIcon">
-                    ▲
-                </span>
+<div
+class="story"
+id="previewStory">
+Paste your Reddit story here...
+</div>
 
-                <span id="previewUpvotes">
-                    18.2k
-                </span>
-
-            </div>
+</div>
 
 
-            <div class="bottomItem">
+<!-- BOTTOM -->
 
-                <span class="commentIcon">
-                    ▰
-                </span>
+<div class="bottomBar">
 
-                <span id="previewComments">
-                    482
-                </span>
+<div class="bottomItem">
 
-            </div>
+<span class="upvoteIcon">▲</span>
 
-        </div>
+<span id="previewUpvotes">
+18.2k
+</span>
 
-    </div>
+</div>
+
+
+<div class="bottomItem">
+
+<span class="commentIcon">▰</span>
+
+<span id="previewComments">
+482
+</span>
+
+</div>
+
+</div>
+
+
+</div>
 
 </div>
 
 
 <script>
 
-/* =========================================
+/* ========================================
    ELEMENTS
-========================================= */
+======================================== */
 
-const avatarUpload =
-    document.getElementById("avatarUpload");
+const avatarUpload = document.getElementById("avatarUpload");
+const avatarImage = document.getElementById("avatarImage");
 
-const avatarImage =
-    document.getElementById("avatarImage");
+const subreddit = document.getElementById("subreddit");
+const author = document.getElementById("author");
+const time = document.getElementById("time");
+const upvotes = document.getElementById("upvotes");
+const comments = document.getElementById("comments");
+const title = document.getElementById("title");
+const story = document.getElementById("story");
 
-const subreddit =
-    document.getElementById("subreddit");
-
-const author =
-    document.getElementById("author");
-
-const time =
-    document.getElementById("time");
-
-const upvotes =
-    document.getElementById("upvotes");
-
-const comments =
-    document.getElementById("comments");
-
-const title =
-    document.getElementById("title");
-
-const story =
-    document.getElementById("story");
-
-const updateBtn =
-    document.getElementById("update");
-
-const obsBtn =
-    document.getElementById("obs");
-
-const exitOBS =
-    document.getElementById("exitOBS");
-
-const downloadBtn =
-    document.getElementById("download");
+const updateBtn = document.getElementById("update");
+const obsBtn = document.getElementById("obs");
+const exitOBS = document.getElementById("exitOBS");
+const downloadBtn = document.getElementById("download");
 
 
-/* =========================================
+/* ========================================
    PREVIEW ELEMENTS
-========================================= */
+======================================== */
 
 const previewSubreddit =
-    document.getElementById("previewSubreddit");
+document.getElementById("previewSubreddit");
 
 const previewAuthor =
-    document.getElementById("previewAuthor");
+document.getElementById("previewAuthor");
 
 const previewTime =
-    document.getElementById("previewTime");
+document.getElementById("previewTime");
 
 const previewUpvotes =
-    document.getElementById("previewUpvotes");
+document.getElementById("previewUpvotes");
 
 const previewComments =
-    document.getElementById("previewComments");
+document.getElementById("previewComments");
 
 const previewTitle =
-    document.getElementById("previewTitle");
+document.getElementById("previewTitle");
 
 const previewStory =
-    document.getElementById("previewStory");
-
-const redditCard =
-    document.getElementById("redditCard");
+document.getElementById("previewStory");
 
 
-/* =========================================
+/* ========================================
    UPDATE POST
-========================================= */
+======================================== */
 
 function updatePost() {
 
@@ -804,9 +790,9 @@ function updatePost() {
 }
 
 
-/* =========================================
+/* ========================================
    UPDATE BUTTON
-========================================= */
+======================================== */
 
 updateBtn.addEventListener(
     "click",
@@ -814,9 +800,9 @@ updateBtn.addEventListener(
 );
 
 
-/* =========================================
+/* ========================================
    LIVE UPDATE
-========================================= */
+======================================== */
 
 [
     subreddit,
@@ -826,7 +812,7 @@ updateBtn.addEventListener(
     comments,
     title,
     story
-].forEach(function(input) {
+].forEach(input => {
 
     input.addEventListener(
         "input",
@@ -836,29 +822,27 @@ updateBtn.addEventListener(
 });
 
 
-/* =========================================
+/* ========================================
    AVATAR UPLOAD
-========================================= */
+======================================== */
 
 avatarUpload.addEventListener(
     "change",
-    function(event) {
+    function(e) {
 
         const file =
-            event.target.files[0];
+            e.target.files[0];
 
-        if (!file) {
-            return;
-        }
+        if (!file) return;
 
         const reader =
             new FileReader();
 
         reader.onload =
-            function(e) {
+            function(event) {
 
                 avatarImage.src =
-                    e.target.result;
+                    event.target.result;
 
             };
 
@@ -868,26 +852,19 @@ avatarUpload.addEventListener(
 );
 
 
-/* =========================================
+/* ========================================
    OBS MODE
-========================================= */
+======================================== */
 
-obsBtn.addEventListener(
-    "click",
-    function() {
+function enterOBS() {
 
-        document.body.classList.add("obs");
+    document.body.classList.add("obs");
 
-        exitOBS.style.display =
-            "block";
+    exitOBS.style.display =
+        "block";
 
-    }
-);
+}
 
-
-/* =========================================
-   EXIT OBS
-========================================= */
 
 function exitObsMode() {
 
@@ -899,21 +876,27 @@ function exitObsMode() {
 }
 
 
+obsBtn.addEventListener(
+    "click",
+    enterOBS
+);
+
+
 exitOBS.addEventListener(
     "click",
     exitObsMode
 );
 
 
-/* =========================================
-   ESCAPE
-========================================= */
+/* ========================================
+   ESC — EXIT OBS
+======================================== */
 
 document.addEventListener(
     "keydown",
-    function(event) {
+    function(e) {
 
-        if (event.key === "Escape") {
+        if (e.key === "Escape") {
 
             exitObsMode();
 
@@ -923,17 +906,17 @@ document.addEventListener(
 );
 
 
-/* =========================================
-   F11
-========================================= */
+/* ========================================
+   F11 — TOGGLE OBS
+======================================== */
 
 document.addEventListener(
     "keydown",
-    function(event) {
+    function(e) {
 
-        if (event.key === "F11") {
+        if (e.key === "F11") {
 
-            event.preventDefault();
+            e.preventDefault();
 
             if (
                 document.body.classList.contains("obs")
@@ -943,10 +926,7 @@ document.addEventListener(
 
             } else {
 
-                document.body.classList.add("obs");
-
-                exitOBS.style.display =
-                    "block";
+                enterOBS();
 
             }
 
@@ -956,193 +936,100 @@ document.addEventListener(
 );
 
 
-/* =========================
+/* ========================================
    DOWNLOAD PNG
-========================= */
+======================================== */
 
-downloadBtn.addEventListener("click", async function () {
+downloadBtn.addEventListener(
+    "click",
+    async function() {
 
-    const card = document.getElementById("redditCard");
+        const card =
+            document.getElementById("redditCard");
 
-    if (!card) {
-        alert("Карточка не найдена");
-        return;
-    }
+        const oldWidth =
+            card.style.width;
 
-    // Сохраняем исходные настройки карточки
-    const oldScrollTop = card.scrollTop;
+        const oldMaxWidth =
+            card.style.maxWidth;
 
-    // Временно убираем тень,
-    // чтобы за пределами карточки ничего не появлялось
-    const oldBoxShadow = card.style.boxShadow;
+        const oldTransform =
+            card.style.transform;
 
-    card.style.boxShadow = "none";
+        const oldPosition =
+            card.style.position;
 
-    try {
+        const oldLeft =
+            card.style.left;
 
-        // Ждём перерисовку
-        await new Promise(resolve =>
-            requestAnimationFrame(resolve)
-        );
 
-        // Снимаем РОВНО текущую карточку
-        // Никакого auto height
-        // Никакого раскрытия текста
-        const canvas = await html2canvas(card, {
+        /* ------------------------------------
+           Временно фиксируем размер карточки
+           по её реальному содержимому
+        ------------------------------------ */
 
-            width: card.offsetWidth,
-            height: card.offsetHeight,
+        const originalHeight =
+            card.offsetHeight;
 
-            scale: 2,
 
-            backgroundColor: null,
+        try {
 
-            useCORS: true,
+            /*
+             ВАЖНО:
 
-            allowTaint: true,
+             Мы НЕ меняем ширину карточки.
 
-            logging: false,
+             Мы НЕ меняем положение карточки.
 
-            removeContainer: true,
+             Мы НЕ создаём огромное полотно.
 
-            // Важно для круглых углов
-            onclone: function (clonedDocument) {
+             html2canvas снимает только сам redditCard.
+            */
 
-                const clonedCard =
-                    clonedDocument.getElementById("redditCard");
 
-                if (clonedCard) {
+            const canvas =
+                await html2canvas(
+                    card,
+                    {
 
-                    clonedCard.style.width =
-                        card.offsetWidth + "px";
+                        scale: 2,
 
-                    clonedCard.style.height =
-                        card.offsetHeight + "px";
+                        backgroundColor: "#000000",
 
-                    clonedCard.style.maxWidth = "none";
+                        useCORS: true,
 
-                    clonedCard.style.maxHeight = "none";
+                        allowTaint: false,
 
-                    clonedCard.style.borderRadius = "28px";
+                        logging: false,
 
-                    clonedCard.style.overflow = "hidden";
+                        imageTimeout: 0,
 
-                    clonedCard.style.boxShadow = "none";
+                        width:
+                            card.offsetWidth,
 
-                    clonedCard.style.background = "#000000";
+                        height:
+                            card.offsetHeight,
 
-                }
+                        windowWidth:
+                            card.offsetWidth,
 
-            }
+                        windowHeight:
+                            card.offsetHeight,
 
-        });
+                        scrollX: 0,
 
-        // Восстанавливаем карточку
-        card.style.boxShadow = oldBoxShadow;
+                        scrollY: 0
 
-        card.scrollTop = oldScrollTop;
+                    }
+                );
 
 
-        // =========================
-        // СОЗДАЁМ PNG
-        // =========================
+            /*
+             Создаём PNG через Blob.
 
-        canvas.toBlob(function(blob) {
-
-            if (!blob) {
-
-                alert("Не удалось создать PNG");
-
-                return;
-
-            }
-
-            const url =
-                URL.createObjectURL(blob);
-
-            const link =
-                document.createElement("a");
-
-            link.style.display = "none";
-
-            link.href = url;
-
-            link.download =
-                "reddit-story.png";
-
-            document.body.appendChild(link);
-
-            link.click();
-
-            setTimeout(function() {
-
-                document.body.removeChild(link);
-
-                URL.revokeObjectURL(url);
-
-            }, 1000);
-
-        }, "image/png");
-
-
-    } catch (error) {
-
-        // Восстанавливаем карточку даже если произошла ошибка
-        card.style.boxShadow = oldBoxShadow;
-
-        card.scrollTop = oldScrollTop;
-
-        console.error(
-            "Ошибка сохранения PNG:",
-            error
-        );
-
-        alert(
-            "Ошибка при создании PNG. Открой F12 → Console."
-        );
-
-    }
-
-});
-
-
-            /* ---------------------------------
-               ВОЗВРАЩАЕМ СТИЛИ
-            --------------------------------- */
-
-            redditCard.style.width =
-                oldWidth;
-
-            redditCard.style.maxWidth =
-                oldMaxWidth;
-
-            redditCard.style.height =
-                oldHeight;
-
-            redditCard.style.maxHeight =
-                oldMaxHeight;
-
-            redditCard.style.overflow =
-                oldOverflow;
-
-
-            /* ---------------------------------
-               ВОЗВРАЩАЕМ OBS
-            --------------------------------- */
-
-            if (wasOBS) {
-
-                document.body.classList.add("obs");
-
-            }
-
-
-            /* ---------------------------------
-               PNG → BLOB
-
-               Это надёжнее, чем
-               canvas.toDataURL + link.click()
-            --------------------------------- */
+             Это надёжнее, чем просто
+             canvas.toDataURL().click().
+            */
 
             canvas.toBlob(
                 function(blob) {
@@ -1150,7 +1037,7 @@ downloadBtn.addEventListener("click", async function () {
                     if (!blob) {
 
                         alert(
-                            "Не удалось создать PNG."
+                            "Не удалось создать PNG"
                         );
 
                         return;
@@ -1158,38 +1045,33 @@ downloadBtn.addEventListener("click", async function () {
                     }
 
 
-                    /* Создаём временный URL */
-
                     const url =
                         URL.createObjectURL(blob);
 
 
-                    /* Создаём ссылку */
-
                     const link =
                         document.createElement("a");
 
-                    link.href =
-                        url;
-
-                    link.download =
-                        "reddit-story.png";
 
                     link.style.display =
                         "none";
 
 
-                    /* Добавляем в страницу */
+                    link.href =
+                        url;
 
-                    document.body.appendChild(link);
+
+                    link.download =
+                        "reddit-story.png";
 
 
-                    /* Запускаем скачивание */
+                    document.body.appendChild(
+                        link
+                    );
+
 
                     link.click();
 
-
-                    /* Удаляем ссылку */
 
                     setTimeout(
                         function() {
@@ -1203,7 +1085,7 @@ downloadBtn.addEventListener("click", async function () {
                             );
 
                         },
-                        2000
+                        1000
                     );
 
                 },
@@ -1213,41 +1095,13 @@ downloadBtn.addEventListener("click", async function () {
 
         } catch(error) {
 
-            /* ---------------------------------
-               ВОЗВРАЩАЕМ СТИЛИ ПРИ ОШИБКЕ
-            --------------------------------- */
-
-            redditCard.style.width =
-                oldWidth;
-
-            redditCard.style.maxWidth =
-                oldMaxWidth;
-
-            redditCard.style.height =
-                oldHeight;
-
-            redditCard.style.maxHeight =
-                oldMaxHeight;
-
-            redditCard.style.overflow =
-                oldOverflow;
-
-
-            if (wasOBS) {
-
-                document.body.classList.add("obs");
-
-            }
-
-
             console.error(
-                "PNG ERROR:",
+                "Ошибка создания PNG:",
                 error
             );
 
-
             alert(
-                "Ошибка создания PNG. Открой F12 → Console и посмотри ошибку."
+                "Ошибка при создании изображения. Открой F12 → Console."
             );
 
         }
@@ -1256,47 +1110,14 @@ downloadBtn.addEventListener("click", async function () {
 );
 
 
-/* =========================================
-   DEFAULT AVATAR
-========================================= */
-
-avatarImage.src =
-    "data:image/svg+xml;charset=UTF-8," +
-    encodeURIComponent(`
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="100"
-            height="100"
-            viewBox="0 0 100 100"
-        >
-            <rect
-                width="100"
-                height="100"
-                fill="#222222"
-            />
-            <circle
-                cx="50"
-                cy="38"
-                r="18"
-                fill="#777777"
-            />
-            <path
-                d="M20 90
-                   C20 68 32 58 50 58
-                   C68 58 80 68 80 90"
-                fill="#777777"
-            />
-        </svg>
-    `);
-
-
-/* =========================================
-   INITIAL UPDATE
-========================================= */
+/* ========================================
+   START
+======================================== */
 
 updatePost();
 
 </script>
 
 </body>
+
 </html>
