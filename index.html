@@ -2,6 +2,7 @@
 <html lang="ru">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -16,9 +17,9 @@
 
 <style>
 
-/* ========================================
+/* =========================
    RESET
-======================================== */
+========================= */
 
 * {
     margin: 0;
@@ -33,7 +34,7 @@ body {
     overflow: hidden;
     font-family: Inter, Arial, sans-serif;
     background: #00ff00;
-    color: white;
+    color: #fff;
 }
 
 body {
@@ -43,12 +44,14 @@ body {
 }
 
 
-/* ========================================
+/* =========================
    SIDEBAR
-======================================== */
+========================= */
 
 .sidebar {
+
     position: fixed;
+
     left: 30px;
     top: 30px;
 
@@ -59,32 +62,38 @@ body {
 
     padding: 28px;
 
-    background: #111111;
+    background: #111;
 
     border-radius: 24px;
 
-    border: 1px solid #222222;
+    border: 1px solid #222;
 
     box-shadow: 0 20px 60px rgba(0,0,0,.4);
 
-    z-index: 100;
+    z-index: 10;
 }
 
 .sidebar h1 {
+
     font-size: 28px;
+
     margin-bottom: 28px;
+
+    font-weight: 800;
 }
 
 .section {
+
     margin-bottom: 20px;
 }
 
 .section label {
+
     display: block;
 
     margin-bottom: 8px;
 
-    color: #dddddd;
+    color: #ddd;
 
     font-size: 14px;
 
@@ -100,11 +109,11 @@ body {
 
     border-radius: 12px;
 
-    border: 1px solid #333333;
+    border: 1px solid #333;
 
     background: #181818;
 
-    color: white;
+    color: #fff;
 
     font-family: inherit;
 
@@ -117,7 +126,6 @@ body {
 .section textarea:focus {
 
     border-color: #4d7cff;
-
 }
 
 .section textarea {
@@ -130,9 +138,9 @@ body {
 }
 
 
-/* ========================================
+/* =========================
    BUTTONS
-======================================== */
+========================= */
 
 .buttons {
 
@@ -166,47 +174,33 @@ body {
     font-weight: 700;
 
     cursor: pointer;
-
-    transition: .2s;
 }
 
 .buttons button:hover {
 
     background: #4678ff;
-
-    transform: translateY(-2px);
-
-}
-
-.buttons button:active {
-
-    transform: scale(.98);
-
 }
 
 #exitOBS {
 
-    background: #222222;
-
+    background: #222;
 }
 
 #exitOBS:hover {
 
-    background: #333333;
-
+    background: #333;
 }
 
 
-/* ========================================
+/* =========================
    PREVIEW
-======================================== */
+========================= */
 
 .preview {
 
     position: absolute;
 
     left: 400px;
-
     right: 40px;
 
     top: 50%;
@@ -221,25 +215,29 @@ body {
 }
 
 
-/* ========================================
+/* =========================
    REDDIT CARD
-======================================== */
+========================= */
 
 .redditCard {
 
     position: relative;
 
-    width: min(1000px, calc(100vw - 480px));
+    width: 1000px;
 
-    background: #000000;
+    height: 800px;
+
+    flex-shrink: 0;
+
+    background: #000;
 
     border-radius: 28px;
 
-    border: 1px solid #222222;
+    border: 1px solid #222;
 
     overflow: hidden;
 
-    box-shadow: 0 25px 70px rgba(0,0,0,.45);
+    box-shadow: 0 25px 70px rgba(0,0,0,.5);
 
     display: flex;
 
@@ -247,9 +245,9 @@ body {
 }
 
 
-/* ========================================
+/* =========================
    HEADER
-======================================== */
+========================= */
 
 .redditHeader {
 
@@ -274,7 +272,7 @@ body {
 
     overflow: hidden;
 
-    background: #222222;
+    background: #222;
 
     flex-shrink: 0;
 }
@@ -294,30 +292,36 @@ body {
 
     font-weight: 800;
 
-    color: #ffffff;
+    color: #fff;
 }
 
 .meta {
 
     margin-top: 5px;
 
-    color: #999999;
+    color: #999;
 
     font-size: 15px;
 }
 
 
-/* ========================================
+/* =========================
    CONTENT
-======================================== */
+========================= */
 
 .cardContent {
 
     padding: 0 38px;
 
+    flex: 1;
+
+    min-height: 0;
+
     display: flex;
 
     flex-direction: column;
+
+    overflow: hidden;
 }
 
 .redditCard h2 {
@@ -330,32 +334,70 @@ body {
 
     line-height: 1.25;
 
-    color: #ffffff;
+    color: #fff;
 
     font-weight: 800;
+
+    flex-shrink: 0;
+
+    word-wrap: break-word;
+
+    overflow-wrap: break-word;
 }
 
+
+/* =========================
+   STORY
+========================= */
+
 .story {
+
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    padding-right: 12px;
+
+    padding-bottom: 20px;
 
     font-size: 25px;
 
     line-height: 1.65;
 
-    color: #ffffff;
+    color: #fff;
 
     white-space: pre-wrap;
 
-    padding-bottom: 20px;
+    word-wrap: break-word;
 
     overflow-wrap: break-word;
+}
 
-    word-break: normal;
+.story::-webkit-scrollbar {
+
+    width: 7px;
+}
+
+.story::-webkit-scrollbar-track {
+
+    background: transparent;
+}
+
+.story::-webkit-scrollbar-thumb {
+
+    background: #444;
+
+    border-radius: 20px;
 }
 
 
-/* ========================================
+/* =========================
    BOTTOM BAR
-======================================== */
+========================= */
 
 .bottomBar {
 
@@ -367,13 +409,13 @@ body {
 
     padding: 20px 38px 30px 38px;
 
-    color: #ffffff;
+    color: #fff;
 
     font-size: 20px;
 
     flex-shrink: 0;
 
-    background: #000000;
+    background: #000;
 }
 
 .bottomItem {
@@ -400,28 +442,26 @@ body {
 }
 
 
-/* ========================================
+/* =========================
    OBS MODE
-======================================== */
-
-body.obs {
-
-    background: #00ff00;
-}
+========================= */
 
 body.obs .sidebar {
 
-    display: none;
+    display: none !important;
 }
 
 body.obs .preview {
 
     position: fixed;
 
-    inset: 0;
+    left: 0;
+    top: 0;
+
+    right: 0;
+    bottom: 0;
 
     width: 100%;
-
     height: 100%;
 
     transform: none;
@@ -437,13 +477,22 @@ body.obs .redditCard {
 
     width: 1200px;
 
+    height: 850px;
+
     max-width: calc(100vw - 80px);
+
+    max-height: calc(100vh - 80px);
+}
+
+body.obs #exitOBS {
+
+    display: block !important;
 }
 
 
-/* ========================================
+/* =========================
    SCROLLBAR
-======================================== */
+========================= */
 
 ::-webkit-scrollbar {
 
@@ -452,22 +501,22 @@ body.obs .redditCard {
 
 ::-webkit-scrollbar-track {
 
-    background: #111111;
+    background: #111;
 }
 
 ::-webkit-scrollbar-thumb {
 
-    background: #444444;
+    background: #444;
 
     border-radius: 20px;
 }
 
 
-/* ========================================
-   MOBILE
-======================================== */
+/* =========================
+   RESPONSIVE
+========================= */
 
-@media(max-width: 1400px) {
+@media(max-width: 1450px) {
 
     .sidebar {
 
@@ -477,13 +526,26 @@ body.obs .redditCard {
     .preview {
 
         left: 370px;
+
+        right: 20px;
     }
 
     .redditCard {
 
         width: calc(100vw - 420px);
+
+        height: 700px;
     }
 
+    .story {
+
+        font-size: 22px;
+    }
+
+    .redditCard h2 {
+
+        font-size: 32px;
+    }
 }
 
 </style>
@@ -494,9 +556,9 @@ body.obs .redditCard {
 <body>
 
 
-<!-- ========================================
+<!-- =========================
      SIDEBAR
-======================================== -->
+========================= -->
 
 <div class="sidebar">
 
@@ -613,9 +675,9 @@ Download PNG
 </div>
 
 
-<!-- ========================================
+<!-- =========================
      PREVIEW
-======================================== -->
+========================= -->
 
 <div class="preview">
 
@@ -639,7 +701,9 @@ src="assets/default-avatar.png">
 <div
 class="subreddit"
 id="previewSubreddit">
+
 r/LetsNotMeet
+
 </div>
 
 <div class="meta">
@@ -672,7 +736,9 @@ Something Happened Last Night
 <div
 class="story"
 id="previewStory">
+
 Paste your Reddit story here...
+
 </div>
 
 </div>
@@ -713,9 +779,9 @@ Paste your Reddit story here...
 
 <script>
 
-/* ========================================
+/* =========================
    ELEMENTS
-======================================== */
+========================= */
 
 const avatarUpload = document.getElementById("avatarUpload");
 const avatarImage = document.getElementById("avatarImage");
@@ -734,9 +800,9 @@ const exitOBS = document.getElementById("exitOBS");
 const downloadBtn = document.getElementById("download");
 
 
-/* ========================================
-   PREVIEW ELEMENTS
-======================================== */
+/* =========================
+   PREVIEW
+========================= */
 
 const previewSubreddit =
 document.getElementById("previewSubreddit");
@@ -760,359 +826,349 @@ const previewStory =
 document.getElementById("previewStory");
 
 
-/* ========================================
+/* =========================
    UPDATE POST
-======================================== */
+========================= */
 
 function updatePost() {
 
     previewSubreddit.textContent =
-        subreddit.value;
+    subreddit.value;
 
     previewAuthor.textContent =
-        author.value;
+    author.value;
 
     previewTime.textContent =
-        time.value;
+    time.value;
 
     previewUpvotes.textContent =
-        upvotes.value;
+    upvotes.value;
 
     previewComments.textContent =
-        comments.value;
+    comments.value;
 
     previewTitle.textContent =
-        title.value;
+    title.value;
 
     previewStory.textContent =
-        story.value;
-
+    story.value;
 }
 
 
-/* ========================================
+/* =========================
    UPDATE BUTTON
-======================================== */
+========================= */
 
 updateBtn.addEventListener(
-    "click",
-    updatePost
+"click",
+updatePost
 );
 
 
-/* ========================================
+/* =========================
    LIVE UPDATE
-======================================== */
+========================= */
 
-[
-    subreddit,
-    author,
-    time,
-    upvotes,
-    comments,
-    title,
-    story
-].forEach(input => {
+document
+.querySelectorAll(
+".sidebar input:not(#avatarUpload), .sidebar textarea"
+)
+.forEach(function(input) {
 
     input.addEventListener(
-        "input",
-        updatePost
+    "input",
+    updatePost
     );
 
 });
 
 
-/* ========================================
-   AVATAR UPLOAD
-======================================== */
+/* =========================
+   AVATAR
+========================= */
 
 avatarUpload.addEventListener(
-    "change",
-    function(e) {
+"change",
+function(e) {
 
-        const file =
-            e.target.files[0];
+    const file =
+    e.target.files[0];
 
-        if (!file) return;
+    if (!file) return;
 
-        const reader =
-            new FileReader();
+    const reader =
+    new FileReader();
 
-        reader.onload =
-            function(event) {
+    reader.onload =
+    function(event) {
 
-                avatarImage.src =
-                    event.target.result;
+        avatarImage.src =
+        event.target.result;
 
-            };
+    };
 
-        reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
 
-    }
-);
+});
 
 
-/* ========================================
+/* =========================
    OBS MODE
-======================================== */
+========================= */
 
 function enterOBS() {
 
     document.body.classList.add("obs");
 
     exitOBS.style.display =
-        "block";
-
+    "block";
 }
 
-
-function exitObsMode() {
+function leaveOBS() {
 
     document.body.classList.remove("obs");
 
     exitOBS.style.display =
-        "none";
-
+    "none";
 }
 
 
 obsBtn.addEventListener(
-    "click",
-    enterOBS
+"click",
+enterOBS
 );
 
 
 exitOBS.addEventListener(
-    "click",
-    exitObsMode
+"click",
+leaveOBS
 );
 
 
-/* ========================================
-   ESC — EXIT OBS
-======================================== */
+/* =========================
+   ESC
+========================= */
 
 document.addEventListener(
-    "keydown",
-    function(e) {
+"keydown",
+function(e) {
 
-        if (e.key === "Escape") {
+    if (e.key === "Escape") {
 
-            exitObsMode();
-
-        }
+        leaveOBS();
 
     }
-);
+
+});
 
 
-/* ========================================
-   F11 — TOGGLE OBS
-======================================== */
+/* =========================
+   F11
+========================= */
 
 document.addEventListener(
-    "keydown",
-    function(e) {
+"keydown",
+function(e) {
 
-        if (e.key === "F11") {
+    if (e.key !== "F11") return;
 
-            e.preventDefault();
+    e.preventDefault();
 
-            if (
-                document.body.classList.contains("obs")
-            ) {
+    if (
+        document.body.classList.contains("obs")
+    ) {
 
-                exitObsMode();
+        leaveOBS();
 
-            } else {
+    } else {
 
-                enterOBS();
+        enterOBS();
+
+    }
+
+});
+
+
+/* =========================
+   DOWNLOAD PNG
+========================= */
+
+downloadBtn.addEventListener(
+"click",
+async function() {
+
+    const card =
+    document.getElementById("redditCard");
+
+    if (!card) {
+
+        alert("Карточка не найдена");
+
+        return;
+
+    }
+
+
+    /*
+       ВАЖНО:
+
+       Мы НЕ меняем размер карточки.
+
+       Она остаётся ровно такой,
+       как отображается на сайте.
+
+       Поэтому скачанное изображение
+       будет только размером карточки.
+    */
+
+
+    try {
+
+        const canvas =
+        await html2canvas(
+        card,
+        {
+
+            scale: 2,
+
+            backgroundColor: "#000000",
+
+            useCORS: true,
+
+            allowTaint: false,
+
+            logging: false,
+
+            width: card.offsetWidth,
+
+            height: card.offsetHeight,
+
+            scrollX: 0,
+
+            scrollY: 0,
+
+            onclone: function(clonedDocument) {
+
+                const clonedCard =
+                clonedDocument.getElementById(
+                "redditCard"
+                );
+
+                if (clonedCard) {
+
+                    clonedCard.style.width =
+                    card.offsetWidth + "px";
+
+                    clonedCard.style.height =
+                    card.offsetHeight + "px";
+
+                    clonedCard.style.maxWidth =
+                    "none";
+
+                    clonedCard.style.maxHeight =
+                    "none";
+
+                    clonedCard.style.borderRadius =
+                    "28px";
+
+                    clonedCard.style.overflow =
+                    "hidden";
+
+                    clonedCard.style.background =
+                    "#000000";
+
+                    clonedCard.style.boxShadow =
+                    "none";
+                }
 
             }
 
-        }
-
-    }
-);
+        });
 
 
-/* ========================================
-   DOWNLOAD PNG
-======================================== */
+        /*
+           Создаём PNG через Blob.
 
-downloadBtn.addEventListener(
-    "click",
-    async function() {
+           Это надёжнее,
+           чем обычный canvas.toDataURL().
+        */
 
-        const card =
-            document.getElementById("redditCard");
+        canvas.toBlob(
+        function(blob) {
 
-        const oldWidth =
-            card.style.width;
+            if (!blob) {
 
-        const oldMaxWidth =
-            card.style.maxWidth;
-
-        const oldTransform =
-            card.style.transform;
-
-        const oldPosition =
-            card.style.position;
-
-        const oldLeft =
-            card.style.left;
-
-
-        /* ------------------------------------
-           Временно фиксируем размер карточки
-           по её реальному содержимому
-        ------------------------------------ */
-
-        const originalHeight =
-            card.offsetHeight;
-
-
-        try {
-
-            /*
-             ВАЖНО:
-
-             Мы НЕ меняем ширину карточки.
-
-             Мы НЕ меняем положение карточки.
-
-             Мы НЕ создаём огромное полотно.
-
-             html2canvas снимает только сам redditCard.
-            */
-
-
-            const canvas =
-                await html2canvas(
-                    card,
-                    {
-
-                        scale: 2,
-
-                        backgroundColor: "#000000",
-
-                        useCORS: true,
-
-                        allowTaint: false,
-
-                        logging: false,
-
-                        imageTimeout: 0,
-
-                        width:
-                            card.offsetWidth,
-
-                        height:
-                            card.offsetHeight,
-
-                        windowWidth:
-                            card.offsetWidth,
-
-                        windowHeight:
-                            card.offsetHeight,
-
-                        scrollX: 0,
-
-                        scrollY: 0
-
-                    }
+                alert(
+                "Не удалось создать PNG"
                 );
 
+                return;
 
-            /*
-             Создаём PNG через Blob.
-
-             Это надёжнее, чем просто
-             canvas.toDataURL().click().
-            */
-
-            canvas.toBlob(
-                function(blob) {
-
-                    if (!blob) {
-
-                        alert(
-                            "Не удалось создать PNG"
-                        );
-
-                        return;
-
-                    }
+            }
 
 
-                    const url =
-                        URL.createObjectURL(blob);
+            const url =
+            URL.createObjectURL(blob);
 
 
-                    const link =
-                        document.createElement("a");
+            const link =
+            document.createElement("a");
+
+            link.href =
+            url;
+
+            link.download =
+            "reddit-story.png";
 
 
-                    link.style.display =
-                        "none";
-
-
-                    link.href =
-                        url;
-
-
-                    link.download =
-                        "reddit-story.png";
-
-
-                    document.body.appendChild(
-                        link
-                    );
-
-
-                    link.click();
-
-
-                    setTimeout(
-                        function() {
-
-                            document.body.removeChild(
-                                link
-                            );
-
-                            URL.revokeObjectURL(
-                                url
-                            );
-
-                        },
-                        1000
-                    );
-
-                },
-                "image/png"
+            document.body.appendChild(
+            link
             );
 
 
-        } catch(error) {
+            link.click();
 
-            console.error(
-                "Ошибка создания PNG:",
-                error
+
+            setTimeout(
+            function() {
+
+                document.body.removeChild(
+                link
+                );
+
+                URL.revokeObjectURL(
+                url
+                );
+
+            },
+            1000
             );
 
-            alert(
-                "Ошибка при создании изображения. Открой F12 → Console."
-            );
-
-        }
+        },
+        "image/png"
+        );
 
     }
-);
+
+    catch(error) {
+
+        console.error(
+        "Ошибка сохранения:",
+        error
+        );
+
+        alert(
+        "Ошибка при сохранении изображения. Открой F12 → Console."
+        );
+
+    }
+
+});
 
 
-/* ========================================
+/* =========================
    START
-======================================== */
+========================= */
 
 updatePost();
 
